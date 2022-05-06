@@ -19,10 +19,22 @@ public class SportRadarClient
 
     public async Task<Champions.Root> GetChampions()
     {
+        return await Get<Champions.Root>("champions.json");
+    }
+
+    public async Task<Competitions.Root> GetCompetitions()
+    {
+        return await Get<Competitions.Root>("competitions.json");
+    }
+    
+    #endregion
+    
+    private async Task<TRoot> Get<TRoot>(string route) where TRoot : class
+    {
         try
         {
-            var request = new RestRequest($"{BaseUrl}/champions.json?api_key={ApiKey}");
-            var response = await _client.ExecuteAsync<Champions.Root>(request);
+            var request = new RestRequest($"{BaseUrl}/{route}?api_key={ApiKey}");
+            var response = await _client.ExecuteAsync<TRoot>(request);
             return response.IsSuccessful ? response.Data : null;
         }
         catch
@@ -30,11 +42,4 @@ public class SportRadarClient
             return null;
         }
     }
-
-    public async Task<Competitions.Root> GetCompetitions()
-    {
-        throw new NotImplementedException();
-    }
-
-    #endregion
 }
