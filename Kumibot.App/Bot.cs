@@ -63,7 +63,7 @@ public static class Bot
         else
         {
             argPos = 0;
-            if (message.HasStringPrefix("<@961429965570719746> ", ref argPos))
+            if (message.HasStringPrefix("<@971933186743472128> ", ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
                 if (!result.IsSuccess)
