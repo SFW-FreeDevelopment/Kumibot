@@ -17,6 +17,8 @@ public class SportRadarRepository
     {
         _client = client;
     }
+
+    #region MMA v2
     
     public async Task<Champions.Root> GetChampions()
     {
@@ -27,6 +29,8 @@ public class SportRadarRepository
     {
         return await Get<Competitions, Competitions.Root>(_client.GetCompetitions());
     }
+    
+    #endregion
 
     private static async Task<TRoot> Get<T, TRoot>(Task<TRoot> task) where TRoot : class
     {
