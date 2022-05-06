@@ -18,6 +18,8 @@ public class SportradarClient
     public async Task<Champions.Root> GetChampions()
     {
         var request = new RestRequest($"{BaseUrl}/champions.json?api_key={ApiKey}");
+        var response = await _client.GetAsync<Champions.Root>(request);
+        return response;
     }
     
     public async Task GetCompetitions()
