@@ -2,7 +2,7 @@
 
 namespace Kumibot.App.Models.SportRadar;
 
-public class CompetitorSummaries
+public class SportEventSummary
 {
     public class Category
     {
@@ -82,12 +82,6 @@ public class CompetitorSummaries
         public Statistics Statistics { get; set; }
     }
 
-    public class Control
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
     public class Coverage
     {
         [JsonPropertyName("live")]
@@ -100,24 +94,6 @@ public class CompetitorSummaries
         public string Type { get; set; }
     }
 
-    public class Id
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class Knockdowns
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class Name
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
     public class Period
     {
         [JsonPropertyName("competitors")]
@@ -127,19 +103,19 @@ public class CompetitorSummaries
         public int Number { get; set; }
     }
 
-    public class Phase
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
     public class Root
     {
+        [JsonPropertyName("sport_event")]
+        public SportEvent SportEvent { get; set; }
+
+        [JsonPropertyName("sport_event_status")]
+        public SportEventStatus SportEventStatus { get; set; }
+
         [JsonPropertyName("generated_at")]
         public DateTime GeneratedAt { get; set; }
 
-        [JsonPropertyName("summaries")]
-        public List<Summary> Summaries { get; set; }
+        [JsonPropertyName("statistics")]
+        public Statistics Statistics { get; set; }
     }
 
     public class Season
@@ -166,31 +142,13 @@ public class CompetitorSummaries
         public bool Disabled { get; set; }
     }
 
-    public class SignificantStrikePercentage
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class SignificantStrikes
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class SignificantStrikesAttempted
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
     public class Sport
     {
         [JsonPropertyName("id")]
-        public Id Id { get; set; }
+        public string Id { get; set; }
 
         [JsonPropertyName("name")]
-        public Name Name { get; set; }
+        public string Name { get; set; }
     }
 
     public class SportEvent
@@ -246,8 +204,8 @@ public class CompetitorSummaries
 
     public class SportEventProperties
     {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
+        [JsonPropertyName("data_complete")]
+        public bool DataComplete { get; set; }
     }
 
     public class SportEventStatus
@@ -301,10 +259,10 @@ public class CompetitorSummaries
     public class Stage
     {
         [JsonPropertyName("phase")]
-        public Phase Phase { get; set; }
+        public string Phase { get; set; }
 
         [JsonPropertyName("type")]
-        public Type Type { get; set; }
+        public string Type { get; set; }
     }
 
     public class Statistics
@@ -316,106 +274,46 @@ public class CompetitorSummaries
         public Totals Totals { get; set; }
 
         [JsonPropertyName("control")]
-        public Control Control { get; set; }
+        public double Control { get; set; }
 
         [JsonPropertyName("knockdowns")]
-        public Knockdowns Knockdowns { get; set; }
+        public int Knockdowns { get; set; }
 
         [JsonPropertyName("significant_strike_percentage")]
-        public SignificantStrikePercentage SignificantStrikePercentage { get; set; }
+        public double SignificantStrikePercentage { get; set; }
 
         [JsonPropertyName("significant_strikes")]
-        public SignificantStrikes SignificantStrikes { get; set; }
+        public int SignificantStrikes { get; set; }
 
         [JsonPropertyName("significant_strikes_attempted")]
-        public SignificantStrikesAttempted SignificantStrikesAttempted { get; set; }
+        public int SignificantStrikesAttempted { get; set; }
 
         [JsonPropertyName("submission_attempts")]
-        public SubmissionAttempts SubmissionAttempts { get; set; }
+        public int SubmissionAttempts { get; set; }
 
         [JsonPropertyName("takedown_percentage")]
-        public TakedownPercentage TakedownPercentage { get; set; }
+        public double TakedownPercentage { get; set; }
 
         [JsonPropertyName("takedowns")]
-        public Takedowns Takedowns { get; set; }
+        public int Takedowns { get; set; }
 
         [JsonPropertyName("takedowns_attempted")]
-        public TakedownsAttempted TakedownsAttempted { get; set; }
+        public int TakedownsAttempted { get; set; }
 
         [JsonPropertyName("total_strike_percentage")]
-        public TotalStrikePercentage TotalStrikePercentage { get; set; }
+        public double TotalStrikePercentage { get; set; }
 
         [JsonPropertyName("total_strikes")]
-        public TotalStrikes TotalStrikes { get; set; }
+        public int TotalStrikes { get; set; }
 
         [JsonPropertyName("total_strikes_attempted")]
-        public TotalStrikesAttempted TotalStrikesAttempted { get; set; }
-    }
-
-    public class SubmissionAttempts
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class Summary
-    {
-        [JsonPropertyName("sport_event")]
-        public SportEvent SportEvent { get; set; }
-
-        [JsonPropertyName("sport_event_status")]
-        public SportEventStatus SportEventStatus { get; set; }
-
-        [JsonPropertyName("statistics")]
-        public Statistics Statistics { get; set; }
-    }
-
-    public class TakedownPercentage
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class Takedowns
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class TakedownsAttempted
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
+        public int TotalStrikesAttempted { get; set; }
     }
 
     public class Totals
     {
         [JsonPropertyName("competitors")]
         public List<Competitor> Competitors { get; set; }
-    }
-
-    public class TotalStrikePercentage
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class TotalStrikes
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class TotalStrikesAttempted
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
-    }
-
-    public class Type
-    {
-        [JsonPropertyName("value")]
-        public string Value { get; set; }
     }
 
     public class Venue

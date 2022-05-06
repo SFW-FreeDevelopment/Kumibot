@@ -2,7 +2,7 @@
 
 namespace Kumibot.App.Models.SportRadar;
 
-public class CompetitorSummaries
+public class CompetitorVsCompetitor
 {
     public class Category
     {
@@ -112,10 +112,34 @@ public class CompetitorSummaries
         public string Value { get; set; }
     }
 
+    public class LastMeeting
+    {
+        [JsonPropertyName("sport_event")]
+        public SportEvent SportEvent { get; set; }
+
+        [JsonPropertyName("sport_event_status")]
+        public SportEventStatus SportEventStatus { get; set; }
+
+        [JsonPropertyName("statistics")]
+        public Statistics Statistics { get; set; }
+    }
+
     public class Name
     {
         [JsonPropertyName("value")]
         public string Value { get; set; }
+    }
+
+    public class NextMeeting
+    {
+        [JsonPropertyName("sport_event")]
+        public SportEvent SportEvent { get; set; }
+
+        [JsonPropertyName("sport_event_status")]
+        public SportEventStatus SportEventStatus { get; set; }
+
+        [JsonPropertyName("statistics")]
+        public Statistics Statistics { get; set; }
     }
 
     public class Period
@@ -135,11 +159,17 @@ public class CompetitorSummaries
 
     public class Root
     {
+        [JsonPropertyName("competitors")]
+        public List<Competitor> Competitors { get; set; }
+
         [JsonPropertyName("generated_at")]
         public DateTime GeneratedAt { get; set; }
 
-        [JsonPropertyName("summaries")]
-        public List<Summary> Summaries { get; set; }
+        [JsonPropertyName("last_meetings")]
+        public List<LastMeeting> LastMeetings { get; set; }
+
+        [JsonPropertyName("next_meetings")]
+        public List<NextMeeting> NextMeetings { get; set; }
     }
 
     public class Season
@@ -356,18 +386,6 @@ public class CompetitorSummaries
     {
         [JsonPropertyName("value")]
         public string Value { get; set; }
-    }
-
-    public class Summary
-    {
-        [JsonPropertyName("sport_event")]
-        public SportEvent SportEvent { get; set; }
-
-        [JsonPropertyName("sport_event_status")]
-        public SportEventStatus SportEventStatus { get; set; }
-
-        [JsonPropertyName("statistics")]
-        public Statistics Statistics { get; set; }
     }
 
     public class TakedownPercentage

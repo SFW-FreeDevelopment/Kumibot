@@ -2,7 +2,7 @@
 
 namespace Kumibot.App.Models.SportRadar;
 
-public class CompetitionSeasons
+public class Seasons
 {
     public class Root
     {
