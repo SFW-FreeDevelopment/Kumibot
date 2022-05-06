@@ -2,6 +2,10 @@
 
 namespace Kumibot.App.Models.SportRadar;
 
+/// Generated using https://json2csharp.com/
+// Check "Use Pascal Case"
+// Check "Use JsonPropertyName (.NET Core)"
+
 public class Champions
 {
     public class Qualifier

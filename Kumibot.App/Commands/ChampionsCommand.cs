@@ -7,7 +7,7 @@ namespace Kumibot.App.Commands;
 
 public class ChampionsCommand : CommandBase
 {
-    private SportRadarRepository _repository;
+    private readonly SportRadarRepository _repository;
     
     public ChampionsCommand(SportRadarRepository repository)
     {
@@ -19,9 +19,9 @@ public class ChampionsCommand : CommandBase
     {
         var root = await _repository.GetChampions();
         var weightClasses = root?.Categories?.FirstOrDefault(c => c.Name.Equals("UFC"))?.WeightClasses;
+        
+        var textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
         var sb = new StringBuilder();
-        var cultureInfo   = Thread.CurrentThread.CurrentCulture;  
-        var textInfo = cultureInfo.TextInfo;
         if (weightClasses != null)
             foreach (var weightClass in weightClasses)
             {

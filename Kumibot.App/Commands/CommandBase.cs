@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Kumibot.App.Commands;
 

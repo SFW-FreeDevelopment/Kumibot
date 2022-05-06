@@ -3,12 +3,14 @@ using RestSharp;
 
 namespace Kumibot.App.Clients;
 
-public class SportradarClient
+public class SportRadarClient
 {
-    private readonly RestClient _client;
     private const string BaseUrl = "https://api.sportradar.com/mma/trial/v2/en";
     private const string ApiKey = "CHANGE_ME";
-    public SportradarClient()
+    
+    private readonly RestClient _client;
+    
+    public SportRadarClient()
     {
         _client = new RestClient(BaseUrl);
     }

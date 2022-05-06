@@ -1,6 +1,6 @@
 ﻿namespace Kumibot.App;
 
-public class Constants
+public static class Constants
 {
     public const string BotToken = "CHANGE_ME";
     

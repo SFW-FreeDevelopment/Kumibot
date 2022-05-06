@@ -13,7 +13,6 @@ public static class Bot
     private static DiscordSocketClient _client;
     private static CommandService _commands;
     private static IServiceProvider _services;
-    
 
     public static async Task RunBotAsync()
     {
@@ -22,7 +21,7 @@ public static class Bot
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
-            .AddScoped<SportradarClient>()
+            .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .BuildServiceProvider();
 

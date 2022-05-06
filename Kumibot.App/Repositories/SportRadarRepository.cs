@@ -11,9 +11,9 @@ public class SportRadarRepository
     
     private static readonly IDictionary<string, CachedObject> _cache = new Dictionary<string, CachedObject>();
 
-    private readonly SportradarClient _client;
+    private readonly SportRadarClient _client;
     
-    public SportRadarRepository(SportradarClient client)
+    public SportRadarRepository(SportRadarClient client)
     {
         _client = client;
     }
