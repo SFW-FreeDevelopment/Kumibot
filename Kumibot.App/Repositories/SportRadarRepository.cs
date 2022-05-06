@@ -1,4 +1,5 @@
-﻿using Kumibot.App.Models;
+﻿using Kumibot.App.Clients;
+using Kumibot.App.Models;
 using Kumibot.App.Models.SportRadar;
 
 namespace Kumibot.App.Repositories;
@@ -10,6 +11,13 @@ public class SportRadarRepository
     
     private static readonly IDictionary<string, CachedObject> _cache = new Dictionary<string, CachedObject>();
 
+    private readonly SportradarClient _client;
+    
+    public SportRadarRepository(SportradarClient client)
+    {
+        _client = client;
+    }
+    
     public async Task<Champions.Root> GetChampions()
     {
         if (_cache.ContainsKey(nameof(Champions)) &&
@@ -19,7 +27,7 @@ public class SportRadarRepository
         }
         else
         {
-            var data = await Task.FromResult(new object()); // TODO: Client call goes ere
+            var data = await _client.GetChampions();
             _cache[nameof(Champions)] = new CachedObject(data);
             return _cache[nameof(Champions)].Data as Champions.Root;
         }
