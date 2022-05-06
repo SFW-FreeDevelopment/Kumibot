@@ -2,6 +2,7 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Kumibot.App.Clients;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kumibot.App;
@@ -20,6 +21,7 @@ public static class Bot
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
+            .AddScoped<SportradarClient>()
             .BuildServiceProvider();
 
         const string token = $"{Constants.BotToken}";
