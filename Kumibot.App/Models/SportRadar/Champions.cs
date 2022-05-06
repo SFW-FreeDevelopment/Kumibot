@@ -42,8 +42,13 @@ public class Champions
 
     public class WeightClass
     {
+        private string _description;
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string Description
+        {
+            get => _description;
+            set => _description = value?.Replace("_", " ");
+        }
 
         [JsonPropertyName("competitor")]
         public Competitor Competitor { get; set; }
