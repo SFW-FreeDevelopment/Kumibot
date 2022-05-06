@@ -2,8 +2,8 @@
 
 public class CachedObject
 {
-    public DateTime CachedAt { get; set; }
-    public object Data { get; set; }
+    public DateTime CachedAt { get; }
+    public object Data { get; }
 
     public CachedObject(object data)
     {

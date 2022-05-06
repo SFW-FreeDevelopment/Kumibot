@@ -17,12 +17,19 @@ public class SportradarClient
 
     public async Task<Champions.Root> GetChampions()
     {
-        var request = new RestRequest($"{BaseUrl}/champions.json?api_key={ApiKey}");
-        var response = await _client.GetAsync<Champions.Root>(request);
-        return response;
+        try
+        {
+            var request = new RestRequest($"{BaseUrl}/champions.json?api_key={ApiKey}");
+            var response = await _client.ExecuteAsync<Champions.Root>(request);
+            return response.IsSuccessful ? response.Data : null;
+        }
+        catch
+        {
+            return null;
+        }
     }
-    
-    public async Task GetCompetitions()
+
+    public async Task<Competitions.Root> GetCompetitions()
     {
         throw new NotImplementedException();
     }

@@ -20,16 +20,34 @@ public class SportRadarRepository
     
     public async Task<Champions.Root> GetChampions()
     {
-        if (_cache.ContainsKey(nameof(Champions)) &&
-            _cache[nameof(Champions)].CachedAt < DateTime.Now.AddMinutes(CacheTime))
+        return await Get<Champions, Champions.Root>(_client.GetChampions());
+    }
+    
+    public async Task<Competitions.Root> GetCompetitions()
+    {
+        return await Get<Competitions, Competitions.Root>(_client.GetCompetitions());
+    }
+
+    private static async Task<TRoot> Get<T, TRoot>(Task<TRoot> getMethod) where TRoot : class
+    {
+        if (_cache.ContainsKey(nameof(T)) &&
+            _cache[nameof(T)].CachedAt < DateTime.Now.AddMinutes(CacheTime))
         {
-            return _cache[nameof(Champions)].Data as Champions.Root;
+            return _cache[nameof(T)].Data as TRoot;
         }
         else
         {
-            var data = await _client.GetChampions();
-            _cache[nameof(Champions)] = new CachedObject(data);
-            return _cache[nameof(Champions)].Data as Champions.Root;
+            var data = await getMethod;
+            if (data == null)
+            {
+                if (_cache.ContainsKey(nameof(T)))
+                {
+                    return _cache[nameof(T)].Data as TRoot;
+                }
+                return null;
+            }
+            _cache[nameof(T)] = new CachedObject(data);
+            return _cache[nameof(T)].Data as TRoot;
         }
     }
 }
