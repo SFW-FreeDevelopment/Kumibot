@@ -28,26 +28,32 @@ public class SportRadarRepository
         return await Get<Competitions, Competitions.Root>(_client.GetCompetitions());
     }
 
-    private static async Task<TRoot> Get<T, TRoot>(Task<TRoot> getMethod) where TRoot : class
+    private static async Task<TRoot> Get<T, TRoot>(Task<TRoot> task) where TRoot : class
     {
-        if (_cache.ContainsKey(nameof(T)) &&
-            _cache[nameof(T)].CachedAt < DateTime.Now.AddMinutes(CacheTime))
+        const string TypeName = nameof(T);
+        
+        // Valid cache
+        // Returns cached data
+        if (_cache.ContainsKey(TypeName) &&
+            _cache[TypeName].CachedAt < DateTime.Now.AddMinutes(CacheTime))
         {
-            return _cache[nameof(T)].Data as TRoot;
+            return _cache[TypeName].Data as TRoot;
         }
-        else
+        
+        var data = await task;
+        
+        // Invalid cache w/ API response
+        // Refreshes the cache
+        if (data != null)
         {
-            var data = await getMethod;
-            if (data == null)
-            {
-                if (_cache.ContainsKey(nameof(T)))
-                {
-                    return _cache[nameof(T)].Data as TRoot;
-                }
-                return null;
-            }
-            _cache[nameof(T)] = new CachedObject(data);
-            return _cache[nameof(T)].Data as TRoot;
+            _cache[TypeName] = new CachedObject(data);
+            return _cache[TypeName].Data as TRoot;
         }
+        
+        // Invalid cache w/ no API response
+        // Try to use cached data if it's there, else this is a first pull that failed and we're out of luck
+        return _cache.ContainsKey(TypeName)
+            ? _cache[TypeName].Data as TRoot
+            : null;
     }
 }
