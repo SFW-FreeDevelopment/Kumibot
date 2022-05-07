@@ -13,6 +13,7 @@ public static class Bot
 {
     private static DiscordSocketClient _client;
     private static CommandService _commands;
+    private static GameRepository _gameRepository;
     private static IServiceProvider _services;
 
     public static async Task RunBotAsync()
@@ -24,7 +25,9 @@ public static class Bot
         
         _client = new DiscordSocketClient();
         _commands = new CommandService();
+        _gameRepository = new GameRepository();
         _services = new ServiceCollection()
+            .AddSingleton(_gameRepository)
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton<IConfiguration>(_ => configuration)
