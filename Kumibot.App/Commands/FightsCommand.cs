@@ -20,8 +20,7 @@ public class FightsCommand : CommandBase
         var seasons = root?.Seasons?.OrderBy(s => DateTime.Parse(s.StartDate)).GroupBy(s => s.StartDate)
             .Select(sg => sg.FirstOrDefault())
             .Where(s => s?.StartDate != null && DateTime.Parse(s.StartDate) > DateTime.Now);
-
-        var textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
+        
         var sb = new StringBuilder();
         if (seasons != null)
             foreach (var season in seasons)
