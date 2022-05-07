@@ -5,11 +5,11 @@ using Kumibot.App.Commands;
 using Kumibot.App.Models.Games;
 using Kumibot.App.Repositories;
 
-public class AddGamesCommand : CommandBase
+public class AddGameCommand : CommandBase
 {
     private readonly GameRepository _gameRepository;
 
-    public AddGamesCommand(GameRepository gameRepository)
+    public AddGameCommand(GameRepository gameRepository)
     {
         _gameRepository = gameRepository;
     }
