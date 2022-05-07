@@ -24,7 +24,7 @@ public class AddGamesCommand : CommandBase
             sb.Append($"{commandArgs[i]} ");
         }
 
-        var gameToCreate = new Game { Slug = commandArgs[0], Name = sb.ToString() };
+        var gameToCreate = new Game { Slug = commandArgs[0], Name = sb.ToString().Trim() };
         var game = _gameRepository.AddGame(gameToCreate);
         await ReplyAsync($"New game added: {game.Slug} - {game.Name}");
     }
