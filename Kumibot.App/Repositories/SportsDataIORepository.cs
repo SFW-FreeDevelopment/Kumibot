@@ -1,5 +1,6 @@
 ﻿using Kumibot.App.Clients;
 using Kumibot.App.Models;
+using Kumibot.App.Models.SportsDataIO;
 
 namespace Kumibot.App.Repositories;
 
@@ -15,6 +16,11 @@ public class SportsDataIORepository
     public SportsDataIORepository(SportsDataIOClient client)
     {
         _client = client;
+    }
+    
+    public async Task<List<Event>> GetEvents()
+    {
+        return await Get(_client.GetEvents());
     }
     
     private static async Task<T> Get<T>(Task<T> task) where T : class
