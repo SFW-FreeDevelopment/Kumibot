@@ -5,11 +5,11 @@ using Kumibot.App.Commands;
 using Kumibot.App.Models.Games;
 using Kumibot.App.Repositories;
 
-public class AddGamesCommand : CommandBase
+public class AddGameCommand : CommandBase
 {
     private readonly GameRepository _gameRepository;
 
-    public AddGamesCommand(GameRepository gameRepository)
+    public AddGameCommand(GameRepository gameRepository)
     {
         _gameRepository = gameRepository;
     }
@@ -24,7 +24,7 @@ public class AddGamesCommand : CommandBase
             sb.Append($"{commandArgs[i]} ");
         }
 
-        var gameToCreate = new Game { Slug = commandArgs[0], Name = sb.ToString() };
+        var gameToCreate = new Game { Slug = commandArgs[0], Name = sb.ToString().Trim() };
         var game = _gameRepository.AddGame(gameToCreate);
         await ReplyAsync($"New game added: {game.Slug} - {game.Name}");
     }
