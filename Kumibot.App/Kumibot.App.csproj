@@ -21,6 +21,13 @@
       <None Update="Data\games.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Data\wallets.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Commands\Betting" />
     </ItemGroup>
 
 </Project>
