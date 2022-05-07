@@ -30,6 +30,11 @@ public class SportRadarRepository
         return await Get<Competitions, Competitions.Root>(_client.GetCompetitions());
     }
     
+    public async Task<Seasons.Root> GetSeasons()
+    {
+        return await Get<Seasons, Seasons.Root>(_client.GetSeasons());
+    }
+    
     #endregion
 
     private static async Task<TRoot> Get<T, TRoot>(Task<TRoot> task) where TRoot : class

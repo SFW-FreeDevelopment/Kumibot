@@ -27,6 +27,11 @@ public class SportRadarClient
         return await Get<Competitions.Root>("competitions.json");
     }
     
+    public async Task<Seasons.Root> GetSeasons()
+    {
+        return await Get<Seasons.Root>("seasons.json");
+    }
+    
     #endregion
     
     private async Task<TRoot> Get<TRoot>(string route) where TRoot : class
