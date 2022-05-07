@@ -16,9 +16,9 @@ public class SportsDataIOClient
         _client = new RestClient(_baseUrl);
     }
     
-    public async Task<List<Event>> GetEvents()
+    public async Task<List<ScheduledEvent>> GetEvents()
     {
-        return await Get<List<Event>>($"scores/json/Schedule/UFC/{DateTime.Now.Year}");
+        return await Get<List<ScheduledEvent>>($"scores/json/Schedule/UFC/{DateTime.Now.Year}");
     }
     
     private async Task<TRoot> Get<TRoot>(string route) where TRoot : class

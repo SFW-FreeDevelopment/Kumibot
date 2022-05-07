@@ -18,7 +18,7 @@ public class SportsDataIORepository
         _client = client;
     }
     
-    public async Task<List<Event>> GetEvents()
+    public async Task<List<ScheduledEvent>> GetEvents()
     {
         return await Get(_client.GetEvents());
     }
