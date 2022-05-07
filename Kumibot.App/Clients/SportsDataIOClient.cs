@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Kumibot.App.Models.SportsDataIO;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 
 namespace Kumibot.App.Clients;
@@ -10,9 +11,14 @@ public class SportsDataIOClient
 
     public SportsDataIOClient(IConfiguration configuration)
     {
-        _apiKey = configuration["SportDataIOApiKey"];
-        _baseUrl = configuration["SportDataIOBaseUrl"];
+        _apiKey = configuration["SportsDataIOApiKey"];
+        _baseUrl = configuration["SportsDataIOBaseUrl"];
         _client = new RestClient(_baseUrl);
+    }
+    
+    public async Task<List<Event>> GetEvents()
+    {
+        return await Get<List<Event>>($"scores/json/Schedule/UFC/{DateTime.Now.Year}");
     }
     
     private async Task<TRoot> Get<TRoot>(string route) where TRoot : class
