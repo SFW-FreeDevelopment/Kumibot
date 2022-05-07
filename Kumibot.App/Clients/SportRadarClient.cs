@@ -6,15 +6,14 @@ namespace Kumibot.App.Clients;
 
 public class SportRadarClient
 {
-    private const string BaseUrl = "https://api.sportradar.com/mma/trial/v2/en";
-
-    private readonly string _apiKey;
+    private readonly string _apiKey, _baseUrl;
     private readonly RestClient _client;
 
     public SportRadarClient(IConfiguration configuration)
     {
         _apiKey = configuration["SportRadarApiKey"];
-        _client = new RestClient(BaseUrl);
+        _baseUrl = configuration["SportRadarBaseUrl"];
+        _client = new RestClient(_baseUrl);
     }
 
     #region MMA v2
@@ -35,7 +34,7 @@ public class SportRadarClient
     {
         try
         {
-            var request = new RestRequest($"{BaseUrl}/{route}?api_key={_apiKey}");
+            var request = new RestRequest($"{_baseUrl}/{route}?api_key={_apiKey}");
             var response = await _client.ExecuteAsync<TRoot>(request);
             return response.IsSuccessful ? response.Data : null;
         }
