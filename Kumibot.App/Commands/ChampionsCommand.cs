@@ -25,7 +25,7 @@ public class ChampionsCommand : CommandBase
         if (weightClasses != null)
             foreach (var weightClass in weightClasses)
             {
-                sb.Append($"- **{textInfo.ToTitleCase(weightClass.Description)}**: {weightClass.Competitor.Name}\n");
+                sb.Append($"- {textInfo.ToTitleCase(weightClass.Description)}: {weightClass.Competitor.Name}\n");
             }
 
         await ReplyAsync($"**Champion List**:\n{sb}");
