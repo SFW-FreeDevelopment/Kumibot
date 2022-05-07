@@ -16,7 +16,7 @@ public class FightsCommand : CommandBase
     }
 
     [Command("fights")]
-    public async Task HandleCommandAsync()
+    public async Task HandleCommandAsync([Remainder] string arg = null)
     {
         // var root = await _repository.GetSeasons();
         // var seasons = root?.Seasons?.OrderBy(s => DateTime.Parse(s.StartDate)).GroupBy(s => s.StartDate)
@@ -24,15 +24,50 @@ public class FightsCommand : CommandBase
         //     .Where(s => s?.StartDate != null && DateTime.Parse(s.StartDate) > DateTime.Now);
 
         var events = await _sportsDataIoRepository.GetEvents();
-        
-        var sb = new StringBuilder();
         if (events != null)
-            foreach (var e in events)
+        {
+            var sb = new StringBuilder();
+            switch (arg)
             {
-                sb.Append(
-                    $"- {e.Day.ToString("D").Replace("Saturday, ", string.Empty)} | {e.Name}\n");
+                case "all":
+                {
+                    foreach (var e in events)
+                    {
+                        sb.Append(
+                            $"- {FormatEventDate(e.Day)} | {e.Name}\n");
+                    }
+
+                    break;
+                }
+                case "next":
+                {
+                    var nextEvent = events.FirstOrDefault(x => x.Day.Date >= DateTime.Now.Date);
+                    sb.Append(
+                        $"- {FormatEventDate(nextEvent?.Day)} | {nextEvent?.Name}\n");
+                    break;
+                }
+                default:
+                {
+                    foreach (var e in events.Where(x => x.Day.Date >= DateTime.Now.Date))
+                    {
+                        sb.Append(
+                            $"- {FormatEventDate(e.Day)} | {e.Name}\n");
+                    }
+
+                    break;
+                }
             }
 
-        await ReplyAsync($"**Fights List**:\n{sb}");
+            await ReplyAsync($"**Fights List**:\n{sb}");
+        }
     }
+
+    #region Private Methods
+
+    private static string FormatEventDate(DateTime? eventDate)
+    {
+        return eventDate?.ToString("D").Replace("Saturday, ", string.Empty);
+    }
+
+    #endregion
 }
