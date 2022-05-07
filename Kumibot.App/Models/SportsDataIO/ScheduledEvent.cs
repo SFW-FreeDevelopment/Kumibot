@@ -11,4 +11,5 @@ public class ScheduledEvent
     public DateTime DateTime { get; set; }
     public string Status { get; set; }
     public bool Active { get; set; }
+    public List<Fight> Fights { get; set; }
 }
