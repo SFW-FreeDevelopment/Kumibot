@@ -21,9 +21,9 @@ public class SportsDataIOClient
         return await Get<List<ScheduledEvent>>($"scores/json/Schedule/UFC/{DateTime.Now.Year}");
     }
     
-    public async Task<List<ScheduledEvent>> GetEvent(long id)
+    public async Task<ScheduledEvent> GetEvent(long id)
     {
-        return await Get<List<ScheduledEvent>>($"scores/json/Event/{id}");
+        return await Get<ScheduledEvent>($"scores/json/Event/{id}");
     }
     
     private async Task<TRoot> Get<TRoot>(string route) where TRoot : class
