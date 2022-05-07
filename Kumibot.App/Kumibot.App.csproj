@@ -26,8 +26,4 @@
       </None>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Commands\Betting" />
-    </ItemGroup>
-
 </Project>
