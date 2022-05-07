@@ -4,6 +4,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Kumibot.App.Clients;
 using Kumibot.App.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kumibot.App;
@@ -16,22 +17,26 @@ public static class Bot
 
     public static async Task RunBotAsync()
     {
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", true, true)
+            .AddEnvironmentVariables()
+            .Build();
+        
         _client = new DiscordSocketClient();
         _commands = new CommandService();
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
+            .AddSingleton<IConfiguration>(_ => configuration)
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .BuildServiceProvider();
-
-        const string token = $"{Constants.BotToken}";
-
+        
         _client.Log += Log;
 
         await RegisterCommandsAsync();
 
-        await _client.LoginAsync(TokenType.Bot, token);
+        await _client.LoginAsync(TokenType.Bot, configuration["DiscordBotToken"]);
 
         await _client.StartAsync();
 

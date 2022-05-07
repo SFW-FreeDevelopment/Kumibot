@@ -1,4 +1,5 @@
 ﻿using Kumibot.App.Models.SportRadar;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 
 namespace Kumibot.App.Clients;
@@ -6,12 +7,13 @@ namespace Kumibot.App.Clients;
 public class SportRadarClient
 {
     private const string BaseUrl = "https://api.sportradar.com/mma/trial/v2/en";
-    private const string ApiKey = "CHANGE_ME";
-    
+
+    private readonly string _apiKey;
     private readonly RestClient _client;
-    
-    public SportRadarClient()
+
+    public SportRadarClient(IConfiguration configuration)
     {
+        _apiKey = configuration["SportRadarApiKey"];
         _client = new RestClient(BaseUrl);
     }
 
@@ -33,7 +35,7 @@ public class SportRadarClient
     {
         try
         {
-            var request = new RestRequest($"{BaseUrl}/{route}?api_key={ApiKey}");
+            var request = new RestRequest($"{BaseUrl}/{route}?api_key={_apiKey}");
             var response = await _client.ExecuteAsync<TRoot>(request);
             return response.IsSuccessful ? response.Data : null;
         }
