@@ -2,6 +2,7 @@
 
 public class MatchUp
 {
+    public int Order { get; set; }
     public string FighterOne { get; set; }
     public string FighterTwo { get; set; }
     public string Winner { get; set; }
