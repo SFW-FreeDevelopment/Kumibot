@@ -17,4 +17,10 @@
       <PackageReference Include="RestSharp" Version="107.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Data\games.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
