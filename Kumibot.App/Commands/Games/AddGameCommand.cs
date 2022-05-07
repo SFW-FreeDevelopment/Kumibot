@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using System.Text.Json;
 using Discord.Commands;
-using Kumibot.App.Commands;
 using Kumibot.App.Models.Games;
 using Kumibot.App.Repositories;
+
+namespace Kumibot.App.Commands.Games;
 
 public class AddGameCommand : CommandBase
 {

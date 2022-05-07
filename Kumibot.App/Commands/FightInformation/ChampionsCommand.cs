@@ -1,9 +1,8 @@
-﻿using System.Globalization;
-using System.Text;
+﻿using System.Text;
 using Discord.Commands;
 using Kumibot.App.Repositories;
 
-namespace Kumibot.App.Commands;
+namespace Kumibot.App.Commands.FightInformation;
 
 public class ChampionsCommand : CommandBase
 {

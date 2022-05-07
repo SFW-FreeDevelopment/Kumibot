@@ -36,6 +36,8 @@ public static class Bot
             .AddSingleton<IConfiguration>(_ => configuration)
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
+            .AddScoped<SportsDataIOClient>()
+            .AddScoped<SportsDataIORepository>()
             .BuildServiceProvider();
         
         _client.Log += Log;
