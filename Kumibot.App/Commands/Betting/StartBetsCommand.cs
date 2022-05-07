@@ -29,7 +29,18 @@ public class StartBetsCommand : CommandBase
             }
             else
             {
-                await ReplyAsync($"Betting started for {currentEvent.Name}");
+                var eventStarted = _bettingService.StartEvent(new BettingEvent
+                {
+                    EventTitle = currentEvent.Name
+                });
+                if (eventStarted)
+                {
+                    await ReplyAsync($"Betting started for {currentEvent.Name}");
+                }
+                else
+                {
+                    await ReplyAsync("Event could not be started.");
+                }
             }
         }
     }
