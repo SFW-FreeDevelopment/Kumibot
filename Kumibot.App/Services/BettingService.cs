@@ -6,9 +6,11 @@ public class BettingService
 {
     private BettingEvent BettingEvent { get; set; }
 
-    public bool CreateEvent(BettingEvent bettingEvent)
+    public bool StartEvent(BettingEvent bettingEvent)
     {
         BettingEvent = bettingEvent;
+        if (BettingEvent is not null)
+            BettingEvent.Status = BettingEventStatus.RUNNING;
         return BettingEvent is not null;
     }
 
@@ -17,14 +19,29 @@ public class BettingService
         return BettingEvent.EventTitle;
     }
 
+    public List<MatchUp> GetMatchUps()
+    {
+        return BettingEvent.MatchUps;
+    }
+    
+    public bool AddMatchUp(MatchUp matchUp)
+    {
+        BettingEvent.MatchUps.Add(matchUp);
+        return BettingEvent.MatchUps.Contains(matchUp);
+    }
+
+    public bool SetWinner(int order, string winner)
+    {
+        var matchUp = BettingEvent.MatchUps.FirstOrDefault(mu => mu.Order.Equals(order));
+        if (matchUp == null) return false;
+        var confirmedWinner = matchUp.FighterOne.Equals(winner) || matchUp.FighterTwo.Equals(winner);
+        if (confirmedWinner) matchUp.Winner = winner;
+        return confirmedWinner;
+    }
+    
     public List<Bet> GetBets()
     {
         return BettingEvent.Bets;
-    }
-    
-    public List<Tuple<string, string>> GetMatchUps()
-    {
-        return BettingEvent.MatchUps;
     }
 
     public bool AddBet(Bet bet)
