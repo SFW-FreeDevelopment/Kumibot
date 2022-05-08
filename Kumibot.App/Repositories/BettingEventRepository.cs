@@ -38,4 +38,62 @@ public class BettingEventRepository
         File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
         return _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(bettingEvent.EventTitle));
     }
+
+    public BettingEvent UpdateBettingEventStatus(string eventTitle, BettingEventStatus status)
+    {
+        var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
+        if (eventToUpdate is null) return null;
+        eventToUpdate.Status = status;
+        eventToUpdate.UpdatedAt = DateTime.Now;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
+        return eventToUpdate;
+    }
+    
+    public BettingEvent EndEvent(string eventTitle)
+    {
+        var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
+        if (eventToUpdate is null) return null;
+        foreach (var matchUp in eventToUpdate.MatchUps)
+        {
+            matchUp.Finished = true;
+        }
+        eventToUpdate.Finished = true;
+        eventToUpdate.UpdatedAt = DateTime.Now;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
+        return eventToUpdate;
+    }
+    
+    public BettingEvent AddMatchUp(string eventTitle, MatchUp matchUp)
+    {
+        var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
+        if (eventToUpdate is null) return null;
+        matchUp.Position = eventToUpdate.MatchUps.Count + 1;
+        eventToUpdate.MatchUps.Add(matchUp);
+        eventToUpdate.UpdatedAt = DateTime.Now;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
+        return eventToUpdate;
+    }
+    
+    public BettingEvent EndMatchUp(string eventTitle, int matchUpPosition)
+    {
+        var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
+        var matchUp = eventToUpdate?.MatchUps.FirstOrDefault(mu => mu.Position.Equals(matchUpPosition));
+        if (matchUp is null) return null;
+        matchUp.Finished = true;
+        eventToUpdate.UpdatedAt = DateTime.Now;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
+        return eventToUpdate;
+    }
+    
+    public BettingEvent AddBet(string eventTitle, Bet bet)
+    {
+        var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
+        if (eventToUpdate is null) return null;
+        var existingBet = eventToUpdate.Bets.FirstOrDefault(b => b.Owner.Equals(bet.Owner));
+        if (existingBet is not null) return null;
+        eventToUpdate.Bets.Add(bet);
+        eventToUpdate.UpdatedAt = DateTime.Now;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
+        return eventToUpdate;
+    }
 }
