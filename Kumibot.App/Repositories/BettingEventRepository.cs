@@ -96,7 +96,7 @@ public class BettingEventRepository
     public BettingEvent AddBet(string eventTitle, Bet bet)
     {
         var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
-        var existingBet = eventToUpdate?.Bets?.FirstOrDefault(b => b.Owner.Equals(bet.Owner));
+        var existingBet = eventToUpdate?.Bets?.FirstOrDefault(b => b.Owner.Equals(bet.Owner) && b.FighterId.Equals(bet.FighterId));
         if (existingBet is not null) return null;
         eventToUpdate.Bets.Add(bet);
         eventToUpdate.UpdatedAt = DateTime.Now;
