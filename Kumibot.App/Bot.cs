@@ -14,9 +14,6 @@ public static class Bot
 {
     private static DiscordSocketClient _client;
     private static CommandService _commands;
-    private static GameRepository _gameRepository;
-    private static WalletRepository _walletRepository;
-    private static BettingEventRepository _bettingEventRepository;
     private static IServiceProvider _services;
 
     public static async Task RunBotAsync()
@@ -28,16 +25,13 @@ public static class Bot
         
         _client = new DiscordSocketClient();
         _commands = new CommandService();
-        _gameRepository = new GameRepository();
-        _walletRepository = new WalletRepository();
-        _bettingEventRepository = new BettingEventRepository();
         _services = new ServiceCollection()
-            .AddSingleton(_gameRepository)
-            .AddSingleton(_walletRepository)
-            .AddSingleton(_bettingEventRepository)
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton<IConfiguration>(_ => configuration)
+            .AddSingleton<GameRepository>()
+            .AddSingleton<WalletRepository>()
+            .AddSingleton<BettingEventRepository>()
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
