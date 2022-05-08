@@ -1,49 +1,53 @@
 ﻿using Kumibot.App.Models.Betting;
+using Kumibot.App.Repositories;
 
 namespace Kumibot.App.Services;
 
 public class BettingService
 {
-    private BettingEvent BettingEvent { get; set; }
+    private BettingEventRepository _bettingEventRepository { get; set; }
+
+    public BettingService(BettingEventRepository bettingEventRepository)
+    {
+        _bettingEventRepository = bettingEventRepository;
+    }
 
     public bool StartEvent(BettingEvent bettingEvent)
     {
-        BettingEvent = bettingEvent;
-        if (BettingEvent is not null)
-            BettingEvent.Status = BettingEventStatus.RUNNING;
-        return BettingEvent is not null;
+        if (_bettingEventRepository.GetBettingEvents().Exists(be => be.EventTitle.Equals(bettingEvent.EventTitle)))
+            return false;
+        var newEvent = _bettingEventRepository.AddBettingEvent(bettingEvent);
+        if (newEvent is not null)
+            _bettingEventRepository.UpdateBettingEventStatus(newEvent.EventTitle, BettingEventStatus.RUNNING);
+        return newEvent is not null;
     }
 
-    public string GetEventTitle()
+    public List<BettingEvent> GetBettingEvents()
     {
-        return BettingEvent.EventTitle;
+        return _bettingEventRepository.GetBettingEvents();
     }
 
-    public List<MatchUp> GetMatchUps()
+    public List<MatchUp> GetMatchUps(string eventTitle)
     {
-        return BettingEvent.MatchUps;
+        var bettingEvent = _bettingEventRepository.GetBettingEventByEventTitle(eventTitle);
+        return bettingEvent?.MatchUps;
     }
     
-    public bool AddMatchUp(MatchUp matchUp)
+    public bool AddMatchUp(string eventTitle, MatchUp matchUp)
     {
-        if (BettingEvent.MatchUps.Exists(mu => mu.Order.Equals(matchUp.Order)))
-            return false;
-        BettingEvent.MatchUps.Add(matchUp);
-        return BettingEvent.MatchUps.Contains(matchUp);
+        var updatedEvent = _bettingEventRepository.AddMatchUp(eventTitle, matchUp);
+        return updatedEvent is not null;
     }
 
     public bool SetWinner(int order, string winner)
     {
-        var matchUp = BettingEvent.MatchUps.FirstOrDefault(mu => mu.Order.Equals(order));
-        if (matchUp is null) return false;
-        var confirmedWinner = matchUp.FighterOne.Equals(winner) || matchUp.FighterTwo.Equals(winner);
-        if (confirmedWinner) matchUp.Winner = winner;
-        return confirmedWinner;
+        throw new NotImplementedException();
     }
     
-    public List<Bet> GetBets()
+    public List<Bet> GetBets(string eventTitle)
     {
-        return BettingEvent.Bets;
+        var bettingEvent = _bettingEventRepository.GetBettingEventByEventTitle(eventTitle);
+        return bettingEvent.Bets;
     }
 
     public bool AddBet(Bet bet)
