@@ -7,4 +7,5 @@ public class MatchUp
     public string FighterTwo { get; set; }
     public string Winner { get; set; }
     public bool Finished { get; set; }
+    public int Position { get; set; }
 }
