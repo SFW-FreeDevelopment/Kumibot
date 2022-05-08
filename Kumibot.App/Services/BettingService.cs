@@ -39,9 +39,10 @@ public class BettingService
         return updatedEvent is not null;
     }
 
-    public bool SetWinner(int order, string winner)
+    public bool SetWinner(string eventTitle, int position, string winner)
     {
-        throw new NotImplementedException();
+        var updatedEvent = _bettingEventRepository.EndMatchUp(eventTitle, position, winner);
+        return updatedEvent is not null;
     }
     
     public List<Bet> GetBets(string eventTitle)
