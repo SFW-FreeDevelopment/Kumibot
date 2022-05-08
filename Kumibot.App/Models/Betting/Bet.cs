@@ -2,7 +2,7 @@
 
 public class Bet
 {
-    public long Owner { get; set; }
+    public ulong Owner { get; set; }
     public double DollarAmount { get; set; }
     public string Fighter { get; set; }
 }
