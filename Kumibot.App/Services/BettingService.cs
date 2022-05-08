@@ -50,11 +50,9 @@ public class BettingService
         return bettingEvent.Bets;
     }
 
-    public bool AddBet(Bet bet)
+    public bool AddBet(string eventTitle, Bet bet)
     {
-        if (BettingEvent.Bets.Exists(b => b.Owner.Equals(bet.Owner)))
-            return false;
-        BettingEvent.Bets.Add(bet);
-        return BettingEvent.Bets.Contains(bet);
+        var newBet = _bettingEventRepository.AddBet(eventTitle, bet);
+        return newBet is not null;
     }
 }
