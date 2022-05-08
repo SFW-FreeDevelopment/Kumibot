@@ -4,6 +4,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Kumibot.App.Clients;
 using Kumibot.App.Repositories;
+using Kumibot.App.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,10 +31,12 @@ public static class Bot
             .AddSingleton<IConfiguration>(_ => configuration)
             .AddSingleton<GameRepository>()
             .AddSingleton<WalletRepository>()
+            .AddSingleton<BettingEventRepository>()
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
             .AddScoped<SportsDataIORepository>()
+            .AddScoped<BettingService>()
             .BuildServiceProvider();
         
         _client.Log += Log;

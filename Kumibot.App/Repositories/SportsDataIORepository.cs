@@ -22,7 +22,7 @@ public class SportsDataIORepository
     {
         return await Get(_client.GetEvents());
     }
-    
+
     private static async Task<T> Get<T>(Task<T> task) where T : class
     {
         const string TypeName = nameof(T);

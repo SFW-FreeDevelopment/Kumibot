@@ -35,4 +35,13 @@ public class WalletRepository
         File.WriteAllText(_sFile, JsonSerializer.Serialize(_wallets));
         return _wallets.FirstOrDefault(w => w.Owner.Equals(wallet.Owner));
     }
+
+    public Wallet UpdateWalletAmount(ulong id, double dollars)
+    {
+        var wallet = _wallets.FirstOrDefault(w => w.Owner.Equals(id));
+        if (wallet is null) return null;
+        wallet.Dollars += dollars;
+        File.WriteAllText(_sFile, JsonSerializer.Serialize(_wallets));
+        return wallet;
+    }
 }
