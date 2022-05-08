@@ -57,7 +57,7 @@ public class EndBetsCommand : CommandBase
                             var bets = _bettingService.GetBets(currentEvent.Name);
                             foreach (var bet in bets.Where(b => !b.Processed && b.FighterId.Equals(matchUp.FighterOneId) | b.FighterId.Equals(matchUp.FighterTwoId)))
                             {
-                                if (bet.Fighter.Equals(splitArgs[2]))
+                                if (bet.FighterId.Equals(winnerId))
                                 {
                                     var earnings = bet.DollarAmount * 3;
                                     var wallet = _walletRepository.UpdateWalletAmount(bet.Owner, earnings);
@@ -67,7 +67,7 @@ public class EndBetsCommand : CommandBase
                                     }
                                     else
                                     {
-                                        await ReplyAsync($"Congratulations, @<{bet.Owner}>! You earned ${earnings.ToString("0.00")}");
+                                        await ReplyAsync($"Congratulations, <@{bet.Owner}>! You earned ${earnings.ToString("0.00")}");
                                     }
                                 }
                                 else
