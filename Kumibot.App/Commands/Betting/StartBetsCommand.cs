@@ -14,7 +14,8 @@ public class StartBetsCommand : CommandBase
     private readonly SportsDataIOClient _sportsDataIoClient;
     private readonly BettingService _bettingService;
 
-    public StartBetsCommand(SportsDataIORepository sportsDataIoRepository, BettingService bettingService, SportsDataIOClient sportsDataIoClient)
+    public StartBetsCommand(SportsDataIORepository sportsDataIoRepository, BettingService bettingService,
+        SportsDataIOClient sportsDataIoClient)
     {
         _sportsDataIoRepository = sportsDataIoRepository;
         _bettingService = bettingService;
@@ -27,7 +28,8 @@ public class StartBetsCommand : CommandBase
         if (args is "current")
         {
             var events = await _sportsDataIoRepository.GetEvents();
-            var currentEvent = events.FirstOrDefault(e => e.Day.Date.Equals(DateTime.Now.Date));
+            //var currentEvent = events.FirstOrDefault(e => e.Day.Date.Equals(DateTime.Now.Date));
+            var currentEvent = events.FirstOrDefault(e => e.EventId.Equals(239));
             if (currentEvent is null)
             {
                 await ReplyAsync("There is no event today. If you need an event, please create a custom event.");
@@ -53,6 +55,7 @@ public class StartBetsCommand : CommandBase
                             sb.Append($"- {matchUps[i].FighterOne} vs {matchUps[i].FighterTwo}\n");
                         }
                     }
+
                     if (matchUpCount > 5)
                     {
                         for (var i = 5; i < 10; i++)
@@ -61,6 +64,7 @@ public class StartBetsCommand : CommandBase
                             sb.Append($"- {matchUps[i].FighterOne} vs {matchUps[i].FighterTwo}\n");
                         }
                     }
+
                     if (matchUpCount > 10)
                     {
                         for (var i = 10; i < 15; i++)
@@ -69,6 +73,7 @@ public class StartBetsCommand : CommandBase
                             sb.Append($"- {matchUps[i].FighterOne} vs {matchUps[i].FighterTwo}\n");
                         }
                     }
+
                     await ReplyAsync(sb.ToString());
                 }
                 else
@@ -83,13 +88,19 @@ public class StartBetsCommand : CommandBase
 
     private static IEnumerable<MatchUp> GetMatchUpsFromDetailedEventFights(List<Fight> fights)
     {
-        return fights is null
-            ? new List<MatchUp>()
-            : fights.Select(fight => fight.Fighters).Select(fighters => new MatchUp
+        var matchUps = new List<MatchUp>();
+        if (fights is null) return matchUps;
+        matchUps.AddRange(from fight in fights
+            let fighters = fight.Fighters
+            select new MatchUp
             {
+                FighterOneId = fighters[0].FighterId,
+                FighterTwoId = fighters[1].FighterId,
                 FighterOne = $"{fighters[0].FirstName} {fighters[0].LastName}",
-                FighterTwo = $"{fighters[1].FirstName} {fighters[1].LastName}"
+                FighterTwo = $"{fighters[1].FirstName} {fighters[1].LastName}",
+                Position = fight.Order ?? -1
             });
+        return matchUps;
     }
 
     #endregion

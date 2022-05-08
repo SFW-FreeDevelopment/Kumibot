@@ -33,7 +33,8 @@ public class EndBetsCommand : CommandBase
             if (splitArgs[0] is "current")
             {
                 var events = await _sportsDataIoRepository.GetEvents();
-                var currentEvent = events.FirstOrDefault(e => e.Day.Date.Equals(DateTime.Now.Date));
+                //var currentEvent = events.FirstOrDefault(e => e.Day.Date.Equals(DateTime.Now.Date));
+                var currentEvent = events.FirstOrDefault(e => e.EventId.Equals(239));
                 if (currentEvent is null)
                 {
                     await ReplyAsync("There is no event today. If you need an event, please create a custom event.");
@@ -49,11 +50,12 @@ public class EndBetsCommand : CommandBase
                     }
                     else
                     {
-                        var winnerSet = _bettingService.SetWinner(currentEvent.Name, position, splitArgs[2]);
+                        var validWinnerId = long.TryParse(splitArgs[2], out var winnerId);
+                        var winnerSet = _bettingService.SetWinner(currentEvent.Name, position, winnerId);
                         if (winnerSet)
                         {
                             var bets = _bettingService.GetBets(currentEvent.Name);
-                            foreach (var bet in bets.Where(b => !b.Processed && (b.Fighter.Equals(matchUp.FighterOne) | b.Fighter.Equals(matchUp.FighterTwo))))
+                            foreach (var bet in bets.Where(b => !b.Processed && b.FighterId.Equals(matchUp.FighterOneId) | b.FighterId.Equals(matchUp.FighterTwoId)))
                             {
                                 if (bet.Fighter.Equals(splitArgs[2]))
                                 {

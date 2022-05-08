@@ -26,14 +26,35 @@ public class AddBetCommand : CommandBase
         if (splitArgs.Length < 3) await ReplyAsync("No money value supplied.");
         var valueConverted = double.TryParse(splitArgs[2], out var betMoney);
         if (!valueConverted) await ReplyAsync("Could not convert money value.");
-        var bet = new Bet
+        var validId = long.TryParse(splitArgs[1], out var fighterId);
+        if (!validId)
         {
-            Owner = GuildUser.Id,
-            DollarAmount = betMoney,
-            Fighter = splitArgs[1]
-        };
-        var betAdded = _bettingService.AddBet(splitArgs[0], bet);
-        if (betAdded) await ReplyAsync($"Bet added for @<{bet.Owner}>.");
-        else await ReplyAsync($"Bet could not be added.");
+            await ReplyAsync("Not a valid Id");
+        }
+        else
+        {
+            if (splitArgs[0] is "current")
+            {
+                var events = await _sportsDataIoRepository.GetEvents();
+                //var currentEvent = events.FirstOrDefault(e => e.Day.Date.Equals(DateTime.Now.Date));
+                var currentEvent = events.FirstOrDefault(e => e.EventId.Equals(239));
+                if (currentEvent is null)
+                {
+                    await ReplyAsync("There is no event today. If you need an event, please create a custom event.");
+                }
+                else
+                {
+                    var bet = new Bet
+                    {
+                        Owner = GuildUser.Id,
+                        DollarAmount = betMoney,
+                        FighterId = fighterId
+                    };
+                    var betAdded = _bettingService.AddBet(currentEvent.Name, bet);
+                    if (betAdded) await ReplyAsync($"Bet added for <@{bet.Owner}>.");
+                    else await ReplyAsync("Bet could not be added.");
+                }
+            }
+        }
     }
 }
