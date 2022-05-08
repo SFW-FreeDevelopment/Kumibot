@@ -2,6 +2,8 @@
 
 public static class Constants
 {
+    public const string BotUserId = "971933186743472128";
+    
     public static readonly string HelpMessage = $"**The following commands can be used:**{Environment.NewLine}" +
                                                 $"  • **help** - Assists the user by displaying all commands{Environment.NewLine}" +
                                                 $"  • **ping** - Pings the Discord channel{Environment.NewLine}" +

@@ -13,8 +13,6 @@ public static class Bot
 {
     private static DiscordSocketClient _client;
     private static CommandService _commands;
-    private static GameRepository _gameRepository;
-    private static WalletRepository _walletRepository;
     private static IServiceProvider _services;
 
     public static async Task RunBotAsync()
@@ -26,14 +24,12 @@ public static class Bot
         
         _client = new DiscordSocketClient();
         _commands = new CommandService();
-        _gameRepository = new GameRepository();
-        _walletRepository = new WalletRepository();
         _services = new ServiceCollection()
-            .AddSingleton(_gameRepository)
-            .AddSingleton(_walletRepository)
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton<IConfiguration>(_ => configuration)
+            .AddSingleton<GameRepository>()
+            .AddSingleton<WalletRepository>()
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
@@ -79,7 +75,7 @@ public static class Bot
         else
         {
             argPos = 0;
-            if (message.HasStringPrefix("<@971933186743472128> ", ref argPos))
+            if (message.HasStringPrefix($"<@{Constants.BotUserId}> ", ref argPos))
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
                 if (!result.IsSuccess)
