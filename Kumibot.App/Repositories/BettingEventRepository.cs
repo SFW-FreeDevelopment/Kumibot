@@ -74,12 +74,19 @@ public class BettingEventRepository
         return eventToUpdate;
     }
     
-    public BettingEvent EndMatchUp(string eventTitle, int matchUpPosition, string winner)
+    public BettingEvent EndMatchUp(string eventTitle, int matchUpPosition, long winnerId)
     {
         var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
         var matchUp = eventToUpdate?.MatchUps.FirstOrDefault(mu => mu.Position.Equals(matchUpPosition));
         if (matchUp is null) return null;
-        matchUp.Winner = winner;
+        if (matchUp.FighterOneId.Equals(winnerId))
+        {
+            matchUp.Winner = matchUp.FighterOne;
+        }
+        if (matchUp.FighterTwoId.Equals(winnerId))
+        {
+            matchUp.Winner = matchUp.FighterTwo;
+        }
         matchUp.Finished = true;
         eventToUpdate.UpdatedAt = DateTime.Now;
         File.WriteAllText(_sFile, JsonSerializer.Serialize(_bettingEvents));
@@ -89,8 +96,7 @@ public class BettingEventRepository
     public BettingEvent AddBet(string eventTitle, Bet bet)
     {
         var eventToUpdate = _bettingEvents.FirstOrDefault(be => be.EventTitle.Equals(eventTitle));
-        if (eventToUpdate is null) return null;
-        var existingBet = eventToUpdate.Bets.FirstOrDefault(b => b.Owner.Equals(bet.Owner));
+        var existingBet = eventToUpdate?.Bets?.FirstOrDefault(b => b.Owner.Equals(bet.Owner));
         if (existingBet is not null) return null;
         eventToUpdate.Bets.Add(bet);
         eventToUpdate.UpdatedAt = DateTime.Now;
