@@ -21,7 +21,6 @@ public class CheckWalletCommand : CommandBase
         {
             var formattedDollars = wallet.Dollars.ToString("0.00");
             await ReplyAsync($"Owner: <@{wallet.Owner}>\nFunds: {formattedDollars}");
-            
         }
         else
         {
