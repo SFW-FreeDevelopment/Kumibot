@@ -3,10 +3,12 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Kumibot.App.Clients;
-using Kumibot.App.Repositories;
+//using Kumibot.App.Repositories;
 using Kumibot.App.Services;
+using Kumibot.Database.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace Kumibot.App;
 
@@ -29,13 +31,14 @@ public static class Bot
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton<IConfiguration>(_ => configuration)
-            .AddSingleton<GameRepository>()
+            .AddScoped<IMongoClient, MongoClient>(_ => new MongoClient(MongoClientSettings.FromConnectionString(configuration["MongoDatabaseConnectionString"])))
+            //.AddSingleton<GameRepository>()
             .AddSingleton<WalletRepository>()
-            .AddSingleton<BettingEventRepository>()
+            //.AddSingleton<BettingEventRepository>()
             .AddScoped<SportRadarClient>()
-            .AddScoped<SportRadarRepository>()
+            //.AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
-            .AddScoped<SportsDataIORepository>()
+            //.AddScoped<SportsDataIORepository>()
             .AddScoped<BettingService>()
             .BuildServiceProvider();
         
