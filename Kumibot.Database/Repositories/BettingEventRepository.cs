@@ -19,7 +19,7 @@ public class BettingEventRepository
         return bettingEvents;
     }
     
-    public async Task<BettingEvent> GetGameById(int id)
+    public async Task<BettingEvent> GetGameById(Guid id)
     {
         var bettingEvent = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(g => g.Id.Equals(id));

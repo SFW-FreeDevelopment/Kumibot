@@ -19,7 +19,7 @@ public class GameRepository
         return games;
     }
     
-    public async Task<Game> GetGameById(int id)
+    public async Task<Game> GetGameById(Guid id)
     {
         var game = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(w => w.Id.Equals(id));

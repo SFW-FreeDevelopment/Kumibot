@@ -5,7 +5,7 @@ namespace Kumibot.Database.Models;
 
 public abstract class BaseResource
 {
-    [Required] [BsonId] public int Id { get; set; }
+    [Required] [BsonId] public Guid Id { get; set; }
     [Required] public DateTime CreatedAt { get; set; }
     [Required] public DateTime UpdatedAt { get; set; }
     [Required] [ConcurrencyCheck] public int Version { get; set; }
