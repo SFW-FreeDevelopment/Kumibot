@@ -26,4 +26,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
+    </ItemGroup>
+
 </Project>
