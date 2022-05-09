@@ -1,6 +1,6 @@
-﻿namespace Kumibot.App.Models.Betting;
+﻿namespace Kumibot.Database.Models.Betting;
 
-public class BettingEvent
+public class BettingEvent : BaseResource
 {
     public string EventTitle { get; set; }
     public List<MatchUp> MatchUps { get; set; } = new();

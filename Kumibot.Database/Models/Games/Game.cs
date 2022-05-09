@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
-namespace Kumibot.App.Models.Games;
+namespace Kumibot.Database.Models.Games;
 
-public class Game
+public class Game : BaseResource
 {
     public string Name { get; set; }
     public string Slug { get; set; }

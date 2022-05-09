@@ -1,5 +1,5 @@
 ﻿using Discord.Commands;
-using Kumibot.App.Repositories;
+using Kumibot.Database.Repositories;
 
 namespace Kumibot.App.Commands.Betting;
 
@@ -16,7 +16,7 @@ public class CheckWalletCommand : CommandBase
     public async Task HandleCommandAsync()
     {
         var walletOwner = GuildUser.Id;
-        var wallet = _walletRepository.GetWalletByOwner(walletOwner);
+        var wallet = await _walletRepository.GetWalletByOwner(walletOwner);
         if (wallet != null)
         {
             var formattedDollars = wallet.Dollars.ToString("0.00");

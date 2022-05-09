@@ -1,4 +1,4 @@
-﻿namespace Kumibot.App.Models.Betting;
+﻿namespace Kumibot.Database.Models.Betting;
 
 public class MatchUp
 {

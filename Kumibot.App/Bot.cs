@@ -5,8 +5,10 @@ using Discord.WebSocket;
 using Kumibot.App.Clients;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
+using Kumibot.Database.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace Kumibot.App;
 
@@ -29,6 +31,7 @@ public static class Bot
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton<IConfiguration>(_ => configuration)
+            .AddScoped<IMongoClient, MongoClient>(_ => new MongoClient(MongoClientSettings.FromConnectionString(configuration["MongoDatabaseConnectionString"])))
             .AddSingleton<GameRepository>()
             .AddSingleton<WalletRepository>()
             .AddSingleton<BettingEventRepository>()
