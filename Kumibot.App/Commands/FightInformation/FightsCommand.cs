@@ -33,8 +33,7 @@ public class FightsCommand : CommandBase
                 {
                     foreach (var e in events)
                     {
-                        sb.Append(
-                            $"- {FormatEventDate(e.Day)} | {e.Name}\n");
+                        sb.AppendLine($"- {FormatEventDate(e.Day)} | {e.Name}");
                     }
 
                     break;
@@ -42,23 +41,21 @@ public class FightsCommand : CommandBase
                 case "next":
                 {
                     var nextEvent = events.FirstOrDefault(x => x.Day.Date >= DateTime.Now.Date);
-                    sb.Append(
-                        $"- {FormatEventDate(nextEvent?.Day)} | {nextEvent?.Name}\n");
+                    sb.AppendLine($"- {FormatEventDate(nextEvent?.Day)} | {nextEvent?.Name}");
                     break;
                 }
                 default:
                 {
                     foreach (var e in events.Where(x => x.Day.Date >= DateTime.Now.Date))
                     {
-                        sb.Append(
-                            $"- {FormatEventDate(e.Day)} | {e.Name}\n");
+                        sb.AppendLine($"- {FormatEventDate(e.Day)} | {e.Name}");
                     }
 
                     break;
                 }
             }
 
-            await ReplyAsync($"**Fights List**:\n{sb}");
+            await ReplyAsync($"**Fights List**:{Environment.NewLine}{sb}");
         }
     }
 

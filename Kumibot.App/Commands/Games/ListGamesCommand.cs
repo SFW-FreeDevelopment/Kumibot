@@ -21,9 +21,9 @@ public class ListGamesCommand : CommandBase
         if (games != null)
             foreach (var game in games)
             {
-                sb.Append($"- {game.Name}\n");
+                sb.AppendLine($"- {game.Name}");
             }
 
-        await ReplyAsync($"**Game List**:\n{sb}");
+        await ReplyAsync($"**Game List**:{Environment.NewLine}{sb}");
     }
 }

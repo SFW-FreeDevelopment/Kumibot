@@ -17,14 +17,16 @@ public class ChampionsCommand : CommandBase
     public async Task HandleCommandAsync()
     {
         var root = await _repository.GetChampions();
-        var weightClasses = root?.Categories?.FirstOrDefault(c => c.Name.Equals("UFC"))?.WeightClasses;
+        var weightClasses = root?.Categories?
+            .FirstOrDefault(c => c.Name.Equals("UFC"))?
+            .WeightClasses;
         
         var textInfo = Thread.CurrentThread.CurrentCulture.TextInfo;
         var sb = new StringBuilder();
         if (weightClasses != null)
             foreach (var weightClass in weightClasses)
             {
-                sb.Append($"- {textInfo.ToTitleCase(weightClass.Description)}: {weightClass.Competitor.Name}\n");
+                sb.AppendLine($"- {textInfo.ToTitleCase(weightClass.Description)}: {weightClass.Competitor.Name}");
             }
 
         await ReplyAsync($"**Champion List**:\n{sb}");

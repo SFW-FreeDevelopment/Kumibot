@@ -29,7 +29,7 @@ public class CompetitionsCommand : CommandBase
         if (competitions != null)
             foreach (var competition in competitions)
             {
-                sb.Append($"- {textInfo.ToTitleCase(competition.Name)}\n");
+                sb.AppendLine($"- {textInfo.ToTitleCase(competition.Name)}");
             }
 
         await ReplyAsync($"**Competitions List**:\n{sb}");
