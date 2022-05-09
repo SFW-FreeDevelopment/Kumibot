@@ -33,6 +33,25 @@ public class GameRepository
         return game;
     }
     
+    public async Task<Game> CreateGame(Game data)
+    {
+        data.Id = Guid.NewGuid();
+        data.Version = 1;
+        data.CreatedAt = DateTime.UtcNow;
+        data.UpdatedAt = data.CreatedAt;
+        await GetCollection().InsertOneAsync(data);
+        var gameList = await GetCollection().AsQueryable().ToListAsync();
+        return gameList.FirstOrDefault(x => x.Id.Equals(data.Id));
+    }
+    
+    public async Task<Game> UpdateGame(Guid id, Game data)
+    {
+        data.UpdatedAt = DateTime.UtcNow;
+        data.Version++;
+        await GetCollection().ReplaceOneAsync(x => x.Id == id, data);
+        return data;
+    }
+    
     private IMongoCollection<Game> GetCollection()
     {
         var database = _mongoClient.GetDatabase("kumibot");
