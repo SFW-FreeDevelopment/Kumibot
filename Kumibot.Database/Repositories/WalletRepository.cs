@@ -35,7 +35,7 @@ public class WalletRepository
 
     public async Task<Wallet> CreateWallet(Wallet data)
     {
-        data.Id = Guid.NewGuid();
+        data.Id = Guid.NewGuid().ToString();
         data.Version = 1;
         data.CreatedAt = DateTime.UtcNow;
         data.UpdatedAt = data.CreatedAt;
@@ -48,7 +48,7 @@ public class WalletRepository
     {
         data.UpdatedAt = DateTime.UtcNow;
         data.Version++;
-        await GetCollection().ReplaceOneAsync(x => x.Id == id, data);
+        await GetCollection().ReplaceOneAsync(x => x.Id.Equals(id.ToString()), data);
         return data;
     }
     
