@@ -1,8 +1,11 @@
 ﻿using System.Reflection;
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.App.Clients;
+using Kumibot.App.Commands;
+using Kumibot.App.Interactions;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
 using Kumibot.Database.Repositories;
@@ -16,6 +19,7 @@ public static class Bot
 {
     private static DiscordSocketClient _client;
     private static CommandService _commands;
+    private static InteractionService _interactions;
     private static IServiceProvider _services;
 
     public static async Task RunBotAsync()
@@ -27,9 +31,11 @@ public static class Bot
         
         _client = new DiscordSocketClient();
         _commands = new CommandService();
+        _interactions = new InteractionService(_client.Rest);
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
+            .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddSingleton<IConfiguration>(_ => configuration)
             .AddScoped<IMongoClient, MongoClient>(_ => new MongoClient(MongoClientSettings.FromConnectionString(configuration["MongoDatabaseConnectionString"])))
             .AddSingleton<GameRepository>()
@@ -43,6 +49,8 @@ public static class Bot
             .BuildServiceProvider();
         
         _client.Log += Log;
+        
+        _client.Ready += RegisterInteractionsAsync;
 
         await RegisterCommandsAsync();
 
@@ -61,8 +69,23 @@ public static class Bot
         
     private static async Task RegisterCommandsAsync()
     {
-        _client.MessageReceived += HandleCommandAsync;
         await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+        _client.MessageReceived += HandleCommandAsync;
+    }
+
+    private static async Task RegisterInteractionsAsync()
+    {
+        await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+        await _interactions.RegisterCommandsToGuildAsync(698640831363547157, false);
+        foreach (var module in _interactions.Modules.Where(x => x.Name.Equals("test") || x.Name.Equals("food_menu")))
+        {
+            var guild = _client.GetGuild(698640831363547157);
+            ulong[] validRoleIds = { 891147635543670844 };
+            var roles = guild.Roles.Where(r => validRoleIds.Contains(r.Id));
+            await _interactions.ModifySlashCommandPermissionsAsync(module, guild, roles.Select(role => new ApplicationCommandPermission(role, true)).ToArray());
+        }
+        _client.InteractionCreated += HandleInteractionAsync;
+        _client.ModalSubmitted += HandleModalAsync;
     }
 
     private static async Task HandleCommandAsync(SocketMessage socketMessage)
@@ -88,5 +111,18 @@ public static class Bot
                     Console.WriteLine(result.ErrorReason);
             }
         }
+    }
+
+    private static async Task HandleInteractionAsync(SocketInteraction socketInteraction)
+    {
+        var context = new SocketInteractionContext(_client, socketInteraction);
+        var result = await _interactions.ExecuteCommandAsync(context, _services);
+        if (!result.IsSuccess)
+            Console.WriteLine(result.ErrorReason);
+    }
+    
+    private static async Task HandleModalAsync(SocketModal modal)
+    {
+        await modal.DeferAsync();
     }
 }
