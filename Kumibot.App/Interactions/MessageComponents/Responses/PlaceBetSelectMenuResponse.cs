@@ -22,7 +22,7 @@ public class PlaceBetSelectMenuResponse : InteractionBase
         var testEvent = await _bettingEventRepository.GetBettingEventById(Guid.Parse(testId));
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Place Bets for {testEvent.EventTitle}")
-            .WithCustomId("bet_form");
+            .WithCustomId("place_bet_form");
         foreach (var matchUp in testEvent.MatchUps)
         {
             modalBuilder.AddTextInput($"1 for {matchUp.FighterOne}/{matchUp.FighterOneOdds}, 2 for {matchUp.FighterTwo}/{matchUp.FighterTwoOdds}", $"match_up_{matchUp.Position}");
