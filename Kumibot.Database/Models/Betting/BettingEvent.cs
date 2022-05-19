@@ -7,13 +7,12 @@ public class BettingEvent : BaseResource
     public List<Bet> Bets { get; set; } = new();
     public BettingEventStatus Status { get; set; } = BettingEventStatus.CREATED;
     public bool Finished { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime? UpdatedAt { get; set; }
 }
 
 public enum BettingEventStatus
 {
     CREATED,
     RUNNING,
+    PROCESSING,
     FINISHED
 }
