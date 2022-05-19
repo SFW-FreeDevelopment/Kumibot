@@ -114,13 +114,6 @@ public static class Bot
     
     private static async Task HandleModalAsync(SocketModal modal)
     {
-        switch (modal.Data.CustomId)
-        {
-            case "add_match_ups":
-                break;
-            default:
-                break;
-        }
         await modal.DeferAsync();
     }
 }
