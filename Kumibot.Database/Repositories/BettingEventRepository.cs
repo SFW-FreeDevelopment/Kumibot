@@ -48,7 +48,7 @@ public class BettingEventRepository
     {
         data.UpdatedAt = DateTime.UtcNow;
         data.Version++;
-        await GetCollection().ReplaceOneAsync(x => x.Id.Equals(id.ToString()), data);
+        await GetCollection().ReplaceOneAsync(x => x.Id.Equals(id), data);
         return data;
     }
     
