@@ -12,8 +12,8 @@ public class CreateBettingEventModal : IModal
     [RequiredInput]
     public string EventTitle { get; set; }
 
-    [InputLabel("Add Match-ups")]
-    [ModalTextInput("match_up_list", placeholder: "Fighter", maxLength: 50)]
-    [RequiredInput]
-    public List<MatchUp> MatchUps { get; set; } = new();
+    // [InputLabel("Add Match-ups")]
+    // [ModalTextInput("match_up_list", placeholder: "Fighter", maxLength: 50)]
+    // [RequiredInput]
+    // public List<MatchUp> MatchUps { get; set; } = new();
 }

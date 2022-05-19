@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Interactions;
+using Kumibot.App.Interactions.SlashCommands;
 
 namespace Kumibot.App.Interactions.Modals.ModalResponses;
 
