@@ -13,13 +13,13 @@ public class BettingEventRepository
         _mongoClient = mongoClient;
     }
     
-    public async Task<IEnumerable<BettingEvent>> GetAllGames()
+    public async Task<IEnumerable<BettingEvent>> GetAllBettingEvents()
     {
         var bettingEvents = await GetCollection().AsQueryable().ToListAsync();
         return bettingEvents;
     }
     
-    public async Task<BettingEvent> GetGameById(Guid id)
+    public async Task<BettingEvent> GetBettingEventById(Guid id)
     {
         var bettingEvent = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(g => g.Id.Equals(id));
