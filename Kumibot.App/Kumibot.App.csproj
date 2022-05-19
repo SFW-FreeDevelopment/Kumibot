@@ -31,4 +31,8 @@
       <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Interactions\SlashCommands" />
+    </ItemGroup>
+
 </Project>

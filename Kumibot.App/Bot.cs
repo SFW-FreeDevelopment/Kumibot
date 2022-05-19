@@ -4,8 +4,6 @@ using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.App.Clients;
-using Kumibot.App.Commands;
-using Kumibot.App.Interactions;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
 using Kumibot.Database.Repositories;
@@ -94,7 +92,7 @@ public static class Bot
         var context = new SocketCommandContext(_client, message);
         if (message is null || message.Author.IsBot) return;
 
-        int argPos = 0;
+        var argPos = 0;
         if (message.HasStringPrefix("kumibot ", ref argPos))
         {
             var result = await _commands.ExecuteAsync(context, argPos, _services);
