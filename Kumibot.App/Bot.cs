@@ -84,6 +84,7 @@ public static class Bot
         }
         _client.InteractionCreated += HandleInteractionAsync;
         _client.ModalSubmitted += HandleModalAsync;
+        _client.SelectMenuExecuted += HandleSelectMenuAsync;
     }
 
     private static async Task HandleCommandAsync(SocketMessage socketMessage)
@@ -121,6 +122,18 @@ public static class Bot
     
     private static async Task HandleModalAsync(SocketModal modal)
     {
+        switch (modal.Data.CustomId)
+        {
+            case "add_match_ups":
+                break;
+            default:
+                break;
+        }
         await modal.DeferAsync();
+    }
+
+    private static async Task HandleSelectMenuAsync(SocketMessageComponent messageComponent)
+    {
+        await messageComponent.DeferAsync();
     }
 }
