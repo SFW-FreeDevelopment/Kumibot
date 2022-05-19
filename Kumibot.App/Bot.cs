@@ -77,7 +77,6 @@ public static class Bot
         await _interactions.RegisterCommandsToGuildAsync(698640831363547157, false);
         _client.InteractionCreated += HandleInteractionAsync;
         _client.ModalSubmitted += HandleModalAsync;
-        //_client.SelectMenuExecuted += HandleSelectMenuAsync;
     }
 
     private static async Task HandleCommandAsync(SocketMessage socketMessage)
@@ -124,9 +123,4 @@ public static class Bot
         }
         await modal.DeferAsync();
     }
-
-    // private static async Task HandleSelectMenuAsync(SocketMessageComponent messageComponent)
-    // {
-    //     await messageComponent.DeferAsync();
-    // }
 }
