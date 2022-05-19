@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
 
-namespace Kumibot.App.Interactions.Modals.ModalResponses;
+namespace Kumibot.App.Interactions.Modals.Responses;
 
 public class CreateBettingEventModalResponse : InteractionBase
 {

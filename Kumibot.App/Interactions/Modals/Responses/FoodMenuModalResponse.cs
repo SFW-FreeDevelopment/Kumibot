@@ -1,8 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
-using Kumibot.App.Interactions.SlashCommands;
 
-namespace Kumibot.App.Interactions.Modals.ModalResponses;
+namespace Kumibot.App.Interactions.Modals.Responses;
 
 public class FoodMenuModalResponse : InteractionBase
 {
