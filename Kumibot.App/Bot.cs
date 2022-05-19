@@ -75,16 +75,9 @@ public static class Bot
     {
         await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         await _interactions.RegisterCommandsToGuildAsync(698640831363547157, false);
-        foreach (var module in _interactions.Modules.Where(x => x.Name.Equals("test") || x.Name.Equals("food_menu")))
-        {
-            var guild = _client.GetGuild(698640831363547157);
-            ulong[] validRoleIds = { 891147635543670844 };
-            var roles = guild.Roles.Where(r => validRoleIds.Contains(r.Id));
-            await _interactions.ModifySlashCommandPermissionsAsync(module, guild, roles.Select(role => new ApplicationCommandPermission(role, true)).ToArray());
-        }
         _client.InteractionCreated += HandleInteractionAsync;
         _client.ModalSubmitted += HandleModalAsync;
-        _client.SelectMenuExecuted += HandleSelectMenuAsync;
+        //_client.SelectMenuExecuted += HandleSelectMenuAsync;
     }
 
     private static async Task HandleCommandAsync(SocketMessage socketMessage)
@@ -132,8 +125,8 @@ public static class Bot
         await modal.DeferAsync();
     }
 
-    private static async Task HandleSelectMenuAsync(SocketMessageComponent messageComponent)
-    {
-        await messageComponent.DeferAsync();
-    }
+    // private static async Task HandleSelectMenuAsync(SocketMessageComponent messageComponent)
+    // {
+    //     await messageComponent.DeferAsync();
+    // }
 }
