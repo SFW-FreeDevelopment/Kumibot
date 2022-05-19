@@ -21,7 +21,7 @@ public class PlaceBetSelectMenuResponse : InteractionBase
         var interaction = (IComponentInteraction)Interaction;
         var bettingEventId = interaction.Data.Values.FirstOrDefault();
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(Guid.Parse(bettingEventId ?? string.Empty));
+            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Place Bets for {bettingEvent.EventTitle}")
             .WithCustomId("place_bet_form")

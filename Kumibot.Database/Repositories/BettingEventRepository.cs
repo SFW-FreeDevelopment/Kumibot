@@ -19,7 +19,7 @@ public class BettingEventRepository
         return bettingEvents;
     }
     
-    public async Task<BettingEvent> GetBettingEventById(Guid id)
+    public async Task<BettingEvent> GetBettingEventById(string id)
     {
         var bettingEvent = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(g => g.Id.Equals(id));
@@ -31,6 +31,25 @@ public class BettingEventRepository
         var bettingEvent = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(g => g.EventTitle.Equals(eventTitle));
         return bettingEvent;
+    }
+
+    public async Task<BettingEvent> CreateBettingEvent(BettingEvent data)
+    {
+        data.Id = Guid.NewGuid().ToString();
+        data.Version = 1;
+        data.CreatedAt = DateTime.UtcNow;
+        data.UpdatedAt = data.CreatedAt;
+        await GetCollection().InsertOneAsync(data);
+        var gameList = await GetCollection().AsQueryable().ToListAsync();
+        return gameList.FirstOrDefault(x => x.Id.Equals(data.Id));
+    }
+    
+    public async Task<BettingEvent> UpdateBettingEvent(string id, BettingEvent data)
+    {
+        data.UpdatedAt = DateTime.UtcNow;
+        data.Version++;
+        await GetCollection().ReplaceOneAsync(x => x.Id.Equals(id.ToString()), data);
+        return data;
     }
     
     private IMongoCollection<BettingEvent> GetCollection()

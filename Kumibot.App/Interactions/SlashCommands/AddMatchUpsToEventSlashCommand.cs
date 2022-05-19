@@ -21,7 +21,7 @@ public class AddMatchUpsToEventSlashCommand : InteractionBase
         var referenceIsId = Guid.TryParse(eventReference, out var id);
         if (referenceIsId)
         {
-            eventToUpdate = await _bettingEventRepository.GetBettingEventById(id);
+            eventToUpdate = await _bettingEventRepository.GetBettingEventById(id.ToString());
         }
         else
         {
