@@ -4,20 +4,20 @@ using Kumibot.Database.Repositories;
 
 namespace Kumibot.App.Interactions.SlashCommands;
 
-public class PlaceBetSlashCommand : InteractionBase
+public class AddMatchUpSlashCommand: InteractionBase
 {
     private readonly BettingEventRepository _bettingEventRepository;
 
-    public PlaceBetSlashCommand(BettingEventRepository bettingEventRepository)
+    public AddMatchUpSlashCommand(BettingEventRepository bettingEventRepository)
     {
         _bettingEventRepository = bettingEventRepository;
     }
     
-    [SlashCommand("placebet", "Place a bet on an ongoing event's match-up")]
-    public async Task PlaceBet()
+    [SlashCommand("addmatchup", "Place a bet on an ongoing event's match-up")]
+    public async Task AddMatchUp()
     {
         var bettingEvents = await _bettingEventRepository.GetAllBettingEvents();
-        var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_select_list");
+        var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("add_match_up_select_list");
         foreach (var bettingEvent in bettingEvents)
         {
             selectMenuBuilder.AddOption(bettingEvent.EventTitle, bettingEvent.Id);
