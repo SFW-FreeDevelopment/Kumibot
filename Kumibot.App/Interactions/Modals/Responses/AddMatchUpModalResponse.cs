@@ -23,6 +23,8 @@ public class AddMatchUpModalResponse : InteractionBase
         {
             FighterOne = modal.FighterOneName,
             FighterTwo = modal.FighterTwoName,
+            FighterOneId = 1,
+            FighterTwoId = 2,
             FighterOneOdds = GetOdds(modal.FighterOneOdds),
             FighterTwoOdds = GetOdds(modal.FighterTwoOdds),
             Position = position

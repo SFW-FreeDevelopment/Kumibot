@@ -2,8 +2,8 @@
 
 public class MatchUp
 {
-    public long? FighterOneId { get; set; }
-    public long? FighterTwoId { get; set; }
+    public long FighterOneId { get; set; }
+    public long FighterTwoId { get; set; }
     public string FighterOne { get; set; }
     public string FighterTwo { get; set; }
     public int FighterOneOdds { get; set; }
