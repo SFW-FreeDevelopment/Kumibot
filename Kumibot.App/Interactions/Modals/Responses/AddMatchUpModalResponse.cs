@@ -18,7 +18,7 @@ public class AddMatchUpModalResponse : InteractionBase
     public async Task ModalResponse(AddMatchUpModal modal)
     {
         var bettingEvent = await _bettingEventRepository.GetBettingEventById(modal.BettingEventId);
-        var position = bettingEvent.MatchUps?.Max(x => x.Position) + 1 ?? 1;
+        var position = bettingEvent.MatchUps.Count > 0 ? bettingEvent.MatchUps.Max(x => x.Position) + 1 : 1;
         bettingEvent.MatchUps?.Add(new MatchUp
         {
             FighterOne = modal.FighterOneName,

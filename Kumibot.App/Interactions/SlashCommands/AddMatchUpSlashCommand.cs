@@ -13,7 +13,7 @@ public class AddMatchUpSlashCommand: InteractionBase
         _bettingEventRepository = bettingEventRepository;
     }
     
-    [SlashCommand("addmatchup", "Place a bet on an ongoing event's match-up")]
+    [SlashCommand("addmatchup", "Add a match-up to an ongoing event")]
     public async Task AddMatchUp()
     {
         var bettingEvents = await _bettingEventRepository.GetAllBettingEvents();
@@ -23,6 +23,6 @@ public class AddMatchUpSlashCommand: InteractionBase
             selectMenuBuilder.AddOption(bettingEvent.EventTitle, bettingEvent.Id);
         }
         var builder = new ComponentBuilder().WithSelectMenu(selectMenuBuilder);
-        await RespondAsync("Select the event to bet on:", components: builder.Build());
+        await RespondAsync("Select the event to add a match-up to:", components: builder.Build());
     }
 }
