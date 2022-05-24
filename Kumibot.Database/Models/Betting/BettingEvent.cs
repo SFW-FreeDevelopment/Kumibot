@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 
 namespace Kumibot.Database.Models.Betting;
-
+// TODO: Add BettingEventType enum
 public class BettingEvent : BaseResource
 {
     public string EventTitle { get; set; }
