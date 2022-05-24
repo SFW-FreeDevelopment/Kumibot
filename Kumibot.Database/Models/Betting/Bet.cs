@@ -6,5 +6,6 @@ public class Bet
     public double DollarAmount { get; set; }
     public long FighterId { get; set; }
     public string Fighter { get; set; }
+    public int MatchUpPosition { get; set; }
     public bool Processed { get; set; }
 }

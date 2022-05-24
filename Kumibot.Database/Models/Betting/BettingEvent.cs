@@ -10,6 +10,7 @@ public class BettingEvent : BaseResource
     public List<Bet> Bets { get; set; } = new();
     public BettingEventStatus Status { get; set; } = BettingEventStatus.CREATED;
     public bool Finished { get; set; }
+    public DateTime? StartsOnDate { get; set; }
 }
 
 [JsonConverter(typeof(StringEnumConverter))]
