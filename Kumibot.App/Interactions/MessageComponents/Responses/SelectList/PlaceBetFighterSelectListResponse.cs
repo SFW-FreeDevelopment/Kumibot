@@ -25,7 +25,6 @@ public class PlaceBetFighterSelectListResponse: InteractionBase
         var bettingEvent =
             await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.FighterOneId.Equals(fighterId) || x.FighterTwoId.Equals(fighterId));
-        var textInputBuilder = new TextInputBuilder().WithCustomId("place_bet_fighter_amount");
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Enter Bet")
             .WithCustomId("place_bet_fighter_amount")
