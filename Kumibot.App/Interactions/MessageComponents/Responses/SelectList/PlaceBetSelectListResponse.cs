@@ -24,7 +24,7 @@ public class PlaceBetSelectListResponse : InteractionBase
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_match_up_select_list");
         foreach (var matchUp in matchUps)
         {
-            selectMenuBuilder.AddOption($"{matchUp.FighterOne} vs {matchUp.FighterTwo}", $"{bettingEventId}_{matchUp.Position}");
+            selectMenuBuilder.AddOption($"{matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}", $"{bettingEventId}_{matchUp.Position}");
         }
         var builder = new ComponentBuilder().WithSelectMenu(selectMenuBuilder);
         await RespondAsync("Select the match-up to bet on:", components: builder.Build());

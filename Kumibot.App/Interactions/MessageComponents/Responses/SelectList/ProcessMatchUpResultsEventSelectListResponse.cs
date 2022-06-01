@@ -24,7 +24,7 @@ public class ProcessMatchUpResultsEventSelectListResponse : InteractionBase
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("process_match_up_results_match_up_select_list");
         foreach (var matchUp in matchUps)
         {
-            selectMenuBuilder.AddOption($"{matchUp.FighterOne} vs {matchUp.FighterTwo}",
+            selectMenuBuilder.AddOption($"{matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}",
                 $"{bettingEventId}_{matchUp.Position}");
         }
 

@@ -20,16 +20,15 @@ public class EnterBetModalResponse : InteractionBase
         var splitValues = modal.NeededValues.Split('_');
         var bettingEventId = splitValues[0];
         var matchUpPosition = int.Parse(splitValues[1]);
-        var fighterId = long.Parse(splitValues[2]);
+        var fighterId = splitValues[2];
         var bettingEvent = await _bettingEventRepository.GetBettingEventById(bettingEventId);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
-        var fighter = fighterId.Equals(1) ? matchUp?.FighterOne : matchUp?.FighterTwo;
+        var fighter = matchUp?.FighterOne.Id.Equals(fighterId) ?? false ? matchUp.FighterOne : matchUp?.FighterTwo;
         var dollarAmount = double.Parse(modal.BettingAmount);
         bettingEvent.Bets.Add(new Bet
         {
             Owner = User.Id,
             DollarAmount = dollarAmount,
-            FighterId = fighterId,
             Fighter = fighter,
             MatchUpPosition = matchUpPosition
         });

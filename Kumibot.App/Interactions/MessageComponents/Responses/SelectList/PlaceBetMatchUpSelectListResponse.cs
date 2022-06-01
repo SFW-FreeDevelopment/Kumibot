@@ -25,8 +25,8 @@ public class PlaceBetMatchUpSelectListResponse : InteractionBase
             await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(int.Parse(matchUpPosition ?? string.Empty)));
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_fighter_select_list");
-        selectMenuBuilder.AddOption($"{matchUp?.FighterOne}", $"{bettingEventId}_{matchUp?.FighterOneId}");
-        selectMenuBuilder.AddOption($"{matchUp?.FighterTwo}", $"{bettingEventId}_{matchUp?.FighterTwoId}");
+        selectMenuBuilder.AddOption($"{matchUp?.FighterOne.Name}", $"{bettingEventId}_{matchUp?.Position}_{matchUp?.FighterOne.Id}");
+        selectMenuBuilder.AddOption($"{matchUp?.FighterTwo.Name}", $"{bettingEventId}_{matchUp?.Position}_{matchUp?.FighterTwo.Id}");
         var builder = new ComponentBuilder().WithSelectMenu(selectMenuBuilder);
         await RespondAsync("Select the fighter to bet on:", components: builder.Build());
     }

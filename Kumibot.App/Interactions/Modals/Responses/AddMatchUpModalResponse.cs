@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Interactions;
+using Kumibot.Database.Models;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
 
@@ -19,12 +20,13 @@ public class AddMatchUpModalResponse : InteractionBase
     {
         var bettingEvent = await _bettingEventRepository.GetBettingEventById(modal.BettingEventId);
         var position = bettingEvent.MatchUps.Count > 0 ? bettingEvent.MatchUps.Max(x => x.Position) + 1 : 1;
+        //TODO: Hook Fighter repository and store fighters
+        var figherOne = new Fighter {Name = modal.FighterOneName};
+        var figherTwo = new Fighter {Name = modal.FighterTwoName};
         bettingEvent.MatchUps?.Add(new MatchUp
         {
-            FighterOne = modal.FighterOneName,
-            FighterTwo = modal.FighterTwoName,
-            FighterOneId = 1,
-            FighterTwoId = 2,
+            FighterOne = figherOne,
+            FighterTwo = figherTwo,
             FighterOneOdds = GetOdds(modal.FighterOneOdds),
             FighterTwoOdds = GetOdds(modal.FighterTwoOdds),
             Position = position

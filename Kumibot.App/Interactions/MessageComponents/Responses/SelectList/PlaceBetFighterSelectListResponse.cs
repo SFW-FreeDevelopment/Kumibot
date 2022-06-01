@@ -20,11 +20,11 @@ public class PlaceBetFighterSelectListResponse: InteractionBase
         var valueCombo = interaction.Data.Values.FirstOrDefault();
         var splitValue = valueCombo?.Split('_');
         var bettingEventId = splitValue?[0];
-        var fighterIdString = splitValue?[1];
-        var fighterId = long.Parse(fighterIdString ?? string.Empty);
+        var matchUpPosition = int.Parse(splitValue?[1] ?? string.Empty);
+        var fighterId = splitValue?[2];
         var bettingEvent =
             await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
-        var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.FighterOneId.Equals(fighterId) || x.FighterTwoId.Equals(fighterId));
+        var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Enter Bet")
             .WithCustomId("place_bet_fighter_amount")
