@@ -4,11 +4,11 @@ using Kumibot.Database.Repositories;
 
 namespace Kumibot.App.Interactions.MessageComponents.Responses.SelectList;
 
-public class ProcessMatchUpResultsEventSelectList : InteractionBase
+public class ProcessMatchUpResultsEventSelectListResponse : InteractionBase
 {
     private readonly BettingEventRepository _bettingEventRepository;
 
-    public ProcessMatchUpResultsEventSelectList(BettingEventRepository bettingEventRepository)
+    public ProcessMatchUpResultsEventSelectListResponse(BettingEventRepository bettingEventRepository)
     {
         _bettingEventRepository = bettingEventRepository;
     }
