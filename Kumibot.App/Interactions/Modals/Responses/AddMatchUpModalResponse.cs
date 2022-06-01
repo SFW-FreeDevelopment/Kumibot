@@ -21,12 +21,12 @@ public class AddMatchUpModalResponse : InteractionBase
         var bettingEvent = await _bettingEventRepository.GetBettingEventById(modal.BettingEventId);
         var position = bettingEvent.MatchUps.Count > 0 ? bettingEvent.MatchUps.Max(x => x.Position) + 1 : 1;
         //TODO: Hook Fighter repository and store fighters
-        var figherOne = new Fighter {Name = modal.FighterOneName};
-        var figherTwo = new Fighter {Name = modal.FighterTwoName};
+        var fighterOne = new Fighter {Name = modal.FighterOneName};
+        var fighterTwo = new Fighter {Name = modal.FighterTwoName};
         bettingEvent.MatchUps?.Add(new MatchUp
         {
-            FighterOne = figherOne,
-            FighterTwo = figherTwo,
+            FighterOne = fighterOne,
+            FighterTwo = fighterTwo,
             FighterOneOdds = GetOdds(modal.FighterOneOdds),
             FighterTwoOdds = GetOdds(modal.FighterTwoOdds),
             Position = position
