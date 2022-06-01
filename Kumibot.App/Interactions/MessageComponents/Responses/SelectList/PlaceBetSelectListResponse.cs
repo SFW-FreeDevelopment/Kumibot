@@ -1,10 +1,8 @@
-﻿using System.ComponentModel;
-using Discord;
+﻿using Discord;
 using Discord.Interactions;
-using Discord.WebSocket;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.MessageComponents.Responses;
+namespace Kumibot.App.Interactions.MessageComponents.Responses.SelectList;
 
 public class PlaceBetSelectListResponse : InteractionBase
 {
