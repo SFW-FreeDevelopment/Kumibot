@@ -30,9 +30,10 @@ public class EnterBetModalResponse : InteractionBase
             Owner = User.Id,
             DollarAmount = dollarAmount,
             FighterId = fighterId,
-            Fighter = fighter
+            Fighter = fighter,
+            MatchUpPosition = matchUpPosition
         });
-            var updatedEvent = await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
+        var updatedEvent = await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
         if (updatedEvent is not null)
         {
             // Build the message to send.
