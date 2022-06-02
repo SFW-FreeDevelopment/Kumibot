@@ -16,7 +16,7 @@ public class AddMatchUpSlashCommand: InteractionBase
     [SlashCommand("addmatchup", "Add a match-up to an ongoing event")]
     public async Task AddMatchUp()
     {
-        var bettingEvents = await _bettingEventRepository.GetAllBettingEvents();
+        var bettingEvents = await _bettingEventRepository.GetActiveBettingEvents();
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("add_match_up_select_list");
         foreach (var bettingEvent in bettingEvents)
         {

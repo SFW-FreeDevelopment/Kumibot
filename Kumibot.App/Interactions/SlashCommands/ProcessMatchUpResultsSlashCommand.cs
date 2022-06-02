@@ -16,7 +16,7 @@ public class ProcessMatchUpResultsSlashCommand: InteractionBase
     [SlashCommand("processmatchupresults", "Place a bet on an ongoing event's match-up")]
     public async Task ProcessMatchUpResults()
     {
-        var bettingEvents = await _bettingEventRepository.GetAllBettingEvents();
+        var bettingEvents = await _bettingEventRepository.GetActiveBettingEvents();
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("process_match_up_results_event_select_list");
         foreach (var bettingEvent in bettingEvents)
         {

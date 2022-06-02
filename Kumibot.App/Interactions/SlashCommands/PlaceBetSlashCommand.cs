@@ -16,7 +16,7 @@ public class PlaceBetSlashCommand : InteractionBase
     [SlashCommand("placebet", "Place a bet on an ongoing event's match-up")]
     public async Task PlaceBet()
     {
-        var bettingEvents = await _bettingEventRepository.GetAllBettingEvents();
+        var bettingEvents = await _bettingEventRepository.GetActiveBettingEvents();
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_select_list");
         foreach (var bettingEvent in bettingEvents)
         {
