@@ -6,7 +6,7 @@ public class MatchUp
     public Fighter FighterTwo { get; set; }
     public int FighterOneOdds { get; set; }
     public int FighterTwoOdds { get; set; }
-    public string Winner { get; set; }
+    public string WinnerId { get; set; }
     public bool Finished { get; set; }
     public int Position { get; set; }
 }
