@@ -19,7 +19,7 @@ public class WalletRepository
         return wallets;
     }
     
-    public async Task<Wallet> GetWalletById(Guid id)
+    public async Task<Wallet> GetWalletById(string id)
     {
         var wallet = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(w => w.Id.Equals(id));
@@ -44,7 +44,7 @@ public class WalletRepository
         return gameList.FirstOrDefault(x => x.Id.Equals(data.Id));
     }
     
-    public async Task<Wallet> UpdateWallet(Guid id, Wallet data)
+    public async Task<Wallet> UpdateWallet(string id, Wallet data)
     {
         data.UpdatedAt = DateTime.UtcNow;
         data.Version++;
