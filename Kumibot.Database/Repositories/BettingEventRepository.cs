@@ -19,6 +19,18 @@ public class BettingEventRepository
         return bettingEvents;
     }
     
+    public async Task<List<BettingEvent>> GetActiveBettingEvents()
+    {
+        var bettingEvents = await GetCollection().AsQueryable().Where(x => x.Status.Equals(BettingEventStatus.Running)).ToListAsync();
+        return bettingEvents;
+    }
+    
+    public async Task<List<BettingEvent>> GetPendingBettingEvents()
+    {
+        var bettingEvents = await GetCollection().AsQueryable().Where(x => x.Status.Equals(BettingEventStatus.Created)).ToListAsync();
+        return bettingEvents;
+    }
+    
     public async Task<BettingEvent> GetBettingEventById(string id)
     {
         var bettingEvent = await GetCollection().AsQueryable()
