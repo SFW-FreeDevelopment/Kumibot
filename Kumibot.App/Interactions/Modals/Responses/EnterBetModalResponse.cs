@@ -37,7 +37,7 @@ public class EnterBetModalResponse : InteractionBase
         {
             // Build the message to send.
             var message =
-                $"{Mention} placed a ${dollarAmount} bet on {fighter} for {bettingEvent.EventTitle}.";
+                $"{Mention} placed a ${dollarAmount} bet on {fighter?.Name} for {bettingEvent.EventTitle}.";
 
             // Specify the AllowedMentions so we don't actually ping everyone.
             AllowedMentions mentions = new();
