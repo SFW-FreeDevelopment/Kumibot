@@ -30,7 +30,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
         if (matchUp is not null)
         {
             matchUp.WinnerId = fighterId;
-            foreach (var bet in bettingEvent.Bets.Where(x => x.MatchUpPosition.Equals(matchUpPosition)))
+            foreach (var bet in bettingEvent.Bets.Where(x => !x.Processed && x.MatchUpPosition.Equals(matchUpPosition)))
             {
                 var wallet = await _walletRepository.GetWalletByOwner(bet.Owner);
                 if (bet.Fighter.Id.Equals(matchUp.WinnerId))
