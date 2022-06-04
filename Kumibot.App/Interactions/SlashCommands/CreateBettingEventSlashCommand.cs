@@ -24,10 +24,11 @@ public class CreateBettingEventSlashCommand : InteractionBase
         {
             EventTitle = eventTitle
         });
+        if (startEvent) newEvent.Status = BettingEventStatus.Running;
         if (newEvent is not null)
         {
             var modalBuilder = new ModalBuilder()
-                .WithTitle($"Add Match-Up for {newEvent.EventTitle}")
+                .WithTitle($"Add Match-Up")
                 .WithCustomId("add_match_up")
                 .AddTextInput("Betting Event Id", "betting_event_id", TextInputStyle.Short, "", null, null, true,
                     newEvent.Id)

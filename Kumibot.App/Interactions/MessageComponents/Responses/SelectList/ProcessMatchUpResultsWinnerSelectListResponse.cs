@@ -63,6 +63,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
                 bet.Processed = true;
             }
 
+            matchUp.Finished = true;
             await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
         }
     }

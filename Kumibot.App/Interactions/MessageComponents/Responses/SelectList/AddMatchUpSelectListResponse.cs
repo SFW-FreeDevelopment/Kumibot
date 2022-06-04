@@ -23,7 +23,7 @@ public class AddMatchUpSelectListResponse : InteractionBase
         if (bettingEvent is not null)
         {
             var modalBuilder = new ModalBuilder()
-                .WithTitle($"Add Match-Up for {bettingEvent.EventTitle}")
+                .WithTitle($"Add Match-Up")
                 .WithCustomId("add_match_up")
                 .AddTextInput("Betting Event Id", "betting_event_id", TextInputStyle.Short, "", null, null, true,
                     bettingEvent.Id)

@@ -22,7 +22,7 @@ public class ProcessMatchUpResultsEventSelectListResponse : InteractionBase
             await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
         var matchUps = bettingEvent.MatchUps;
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("process_match_up_results_match_up_select_list");
-        foreach (var matchUp in matchUps)
+        foreach (var matchUp in matchUps.Where(x => !x.Finished))
         {
             selectMenuBuilder.AddOption($"{matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}",
                 $"{bettingEventId}_{matchUp.Position}");
