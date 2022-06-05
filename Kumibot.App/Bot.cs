@@ -55,8 +55,8 @@ public static class Bot
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
             .AddScoped<SportsDataIORepository>()
-            .AddScoped<IKumibotService<BettingEvent>, BettingService>()
-            .AddScoped<IKumibotService<Fighter>, FighterService>()
+            .AddScoped<BettingService>()
+            .AddScoped<FighterService>()
             .BuildServiceProvider();
 
         _client.Log += Log;

@@ -23,19 +23,15 @@ public class AddSinglesMatchModal : IModal
     public static ModalBuilder GetAddSinglesMatchUpModal(string eventId)
     {
         return new ModalBuilder()
-            .WithTitle($"Add Singles Match-Up")
-            .WithCustomId("add_singles_match_up")
+            .WithTitle($"Add Singles Match")
+            .WithCustomId("add_singles_match")
             .AddTextInput(Constants.NeededValues, Constants.NeededValuesId, TextInputStyle.Short, "", null, null, true,
                 eventId)
             .AddTextInput(
                 $"Fighter 1 Name",
                 "fighter_1_name", placeholder: "Fighter One", required: true)
-            .AddTextInput("Fighter 1 Odds",
-                "fighter_1_odds", placeholder: "+100")
             .AddTextInput(
                 "Fighter 2 Name",
-                "fighter_2_name", placeholder: "Fighter Two", required: true)
-            .AddTextInput("Fighter 2 Odds",
-                "fighter_2_odds", placeholder: "-100");
+                "fighter_2_name", placeholder: "Fighter Two", required: true);
     }
 }
