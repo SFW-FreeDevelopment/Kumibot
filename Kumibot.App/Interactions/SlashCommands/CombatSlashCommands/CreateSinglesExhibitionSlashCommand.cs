@@ -17,18 +17,19 @@ public class CreateSinglesExhibitionSlashCommand : InteractionBase
     [SlashCommand("createsinglesexhibition", "Creates a 1 vs 1 exhibition fight.")]
     public async Task CreateSinglesExhibition(string eventTitle, bool startEvent)
     {
-        var newEvent = await _combatEventRepository.Create(new CombatEvent
+        var eventToCreate = new CombatEvent
         {
             EventTitle = eventTitle,
             Type = CombatEventType.SingleExhibition,
             DiscordOwner = User.Id
-        });
-        if (startEvent) newEvent.Status = CombatEventStatus.Running;
+        };
+        if (startEvent) eventToCreate.Status = CombatEventStatus.Running;
+        var newEvent = await _combatEventRepository.Create(eventToCreate);
         if (newEvent is not null)
         {
-            var modalBuilder = AddSinglesMatchModal.GetAddSinglesMatchUpModal(newEvent.Id);
+            await ReplyAsync($"{Mention} has created a 1 vs 1 exhibition: {eventTitle}!");
+            var modalBuilder = AddSinglesMatchModal.GetAddSinglesMatchModal(newEvent.Id);
             await RespondWithModalAsync(modalBuilder.Build());
-            await Interaction.RespondAsync($"{Mention} has created a 1 vs 1 exhibition: {eventTitle}!");
         }
     }
 }
