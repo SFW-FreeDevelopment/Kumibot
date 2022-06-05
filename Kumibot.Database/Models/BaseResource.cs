@@ -9,4 +9,12 @@ public abstract class BaseResource
     [Required] public DateTime CreatedAt { get; set; }
     [Required] public DateTime UpdatedAt { get; set; }
     [Required] [ConcurrencyCheck] public int Version { get; set; }
+
+    protected BaseResource()
+    {
+        Id = Guid.NewGuid().ToString();
+        CreatedAt = DateTime.Now;
+        UpdatedAt = DateTime.Now;
+        Version = 1;
+    }
 }

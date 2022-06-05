@@ -1,8 +1,6 @@
-﻿using System.Text;
-using Discord.Commands;
+﻿using Discord.Commands;
 using Kumibot.App.Clients;
 //using Kumibot.App.Models.Betting;
-using Kumibot.App.Models.SportsDataIO;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
 
