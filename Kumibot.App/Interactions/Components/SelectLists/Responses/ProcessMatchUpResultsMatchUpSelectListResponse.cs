@@ -23,7 +23,7 @@ public class ProcessMatchUpResultsMatchUpSelectListResponse : InteractionBase
         var bettingEventId = splitValue?[0];
         var matchUpPosition = int.Parse(splitValue?[1] ?? string.Empty);
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("process_match_up_results_winner_select_list");
         selectMenuBuilder.AddOption($"{matchUp?.FighterOne.Name}",

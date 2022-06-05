@@ -23,7 +23,7 @@ public class PlaceBetMatchUpSelectListResponse : InteractionBase
         var bettingEventId = splitValue?[0];
         var matchUpPosition = splitValue?[1];
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(int.Parse(matchUpPosition ?? string.Empty)));
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_fighter_select_list");
         if (matchUp != null)

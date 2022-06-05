@@ -24,7 +24,7 @@ public class PlaceBetFighterSelectListResponse: InteractionBase
         var matchUpPosition = int.Parse(splitValue?[1] ?? string.Empty);
         var fighterId = splitValue?[2];
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
         var modalBuilder = new ModalBuilder()
             .WithTitle($"Enter Bet")

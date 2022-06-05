@@ -26,7 +26,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
         var matchUpPosition = int.Parse(splitValue?[1] ?? string.Empty);
         var fighterId = splitValue?[2];
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
         if (matchUp is not null)
         {
@@ -67,7 +67,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
             }
 
             matchUp.Finished = true;
-            await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
+            await _bettingEventRepository.Update(bettingEvent.Id, bettingEvent);
         }
     }
 

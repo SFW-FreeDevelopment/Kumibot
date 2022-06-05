@@ -20,7 +20,7 @@ public class AddMatchUpSelectListResponse : InteractionBase
         var interaction = (IComponentInteraction)Interaction;
         var bettingEventId = interaction.Data.Values.FirstOrDefault();
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         if (bettingEvent is not null)
         {
             var modalBuilder = new ModalBuilder()

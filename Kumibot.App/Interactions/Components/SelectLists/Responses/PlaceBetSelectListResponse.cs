@@ -20,7 +20,7 @@ public class PlaceBetSelectListResponse : InteractionBase
         var interaction = (IComponentInteraction)Interaction;
         var bettingEventId = interaction.Data.Values.FirstOrDefault();
         var bettingEvent =
-            await _bettingEventRepository.GetBettingEventById(bettingEventId ?? string.Empty);
+            await _bettingEventRepository.GetById(bettingEventId ?? string.Empty);
         var matchUps = bettingEvent.MatchUps;
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_match_up_select_list");
         foreach (var matchUp in matchUps.Where(x => !x.Finished))
