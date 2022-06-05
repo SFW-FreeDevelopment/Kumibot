@@ -3,6 +3,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.SlashCommands.BettingSlashCommands;
 

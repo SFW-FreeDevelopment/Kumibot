@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
 
-namespace Kumibot.App.Interactions.Components.Modals;
+namespace Kumibot.App.Interactions.Components.Modals.CombatModals;
 
 [Group("kumibot", "Kumibot commands")]
 public class AddSinglesMatchUpModal : IModal

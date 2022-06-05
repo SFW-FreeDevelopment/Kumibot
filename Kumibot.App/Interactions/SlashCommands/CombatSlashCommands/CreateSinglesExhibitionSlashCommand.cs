@@ -2,9 +2,11 @@
 using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.App.Interactions.Components.Modals;
+using Kumibot.App.Interactions.Components.Modals.CombatModals;
 using Kumibot.Database.Models.Betting;
-using Kumibot.Database.Models.CombatEvent;
+using Kumibot.Database.Models.Combat;
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
 

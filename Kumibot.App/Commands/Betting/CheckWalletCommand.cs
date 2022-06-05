@@ -1,5 +1,6 @@
 ﻿using Discord.Commands;
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Commands.Betting;
 

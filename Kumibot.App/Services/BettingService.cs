@@ -1,6 +1,7 @@
 ﻿//using Kumibot.App.Models.Betting;
 
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Services;
 

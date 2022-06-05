@@ -1,4 +1,4 @@
-﻿namespace Kumibot.App.Interactions.Components.SelectLists;
+﻿namespace Kumibot.App.Interactions.Components.SelectLists.CombatSelectLists;
 
 public static class CombatEventSelectList
 {

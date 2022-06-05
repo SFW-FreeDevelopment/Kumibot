@@ -1,4 +1,6 @@
-﻿namespace Kumibot.Database.Models.Betting;
+﻿using Kumibot.Database.Models.Combat;
+
+namespace Kumibot.Database.Models.Betting;
 
 public class MatchUp
 {

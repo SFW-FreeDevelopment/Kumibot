@@ -1,9 +1,7 @@
-﻿using Kumibot.Database.Interfaces;
-using Kumibot.Database.Models.Betting;
+﻿using Kumibot.Database.Models.Betting;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
-namespace Kumibot.Database.Repositories;
+namespace Kumibot.Database.Repositories.Betting;
 
 public class WalletRepository : BaseRepository<Wallet>
 {

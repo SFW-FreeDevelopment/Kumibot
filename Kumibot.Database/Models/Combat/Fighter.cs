@@ -1,4 +1,4 @@
-﻿namespace Kumibot.Database.Models;
+﻿namespace Kumibot.Database.Models.Combat;
 
 public class Fighter : BaseResource
 {

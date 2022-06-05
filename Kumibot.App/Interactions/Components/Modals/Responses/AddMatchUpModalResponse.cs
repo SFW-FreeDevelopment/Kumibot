@@ -1,8 +1,11 @@
 ﻿using Discord;
 using Discord.Interactions;
+using Kumibot.App.Interactions.Components.Modals.CombatModals;
 using Kumibot.Database.Models;
 using Kumibot.Database.Models.Betting;
+using Kumibot.Database.Models.Combat;
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.Components.Modals.Responses;
 

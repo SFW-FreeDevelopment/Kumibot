@@ -1,8 +1,8 @@
-﻿using Kumibot.Database.Models.Games;
+﻿using Kumibot.Database.Models.Gaming;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Kumibot.Database.Repositories;
+namespace Kumibot.Database.Repositories.Gaming;
 
 public class GameRepository
 {

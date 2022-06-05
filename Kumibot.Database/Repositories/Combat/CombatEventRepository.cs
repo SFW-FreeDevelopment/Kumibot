@@ -1,9 +1,7 @@
-﻿using Kumibot.Database.Interfaces;
-using Kumibot.Database.Models.CombatEvent;
+﻿using Kumibot.Database.Models.Combat;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
-namespace Kumibot.Database.Repositories;
+namespace Kumibot.Database.Repositories.Combat;
 
 public class CombatEventRepository : BaseRepository<CombatEvent>
 {

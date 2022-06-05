@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
-namespace Kumibot.Database.Models.Games;
+namespace Kumibot.Database.Models.Gaming;
 
 public class Game : BaseResource
 {

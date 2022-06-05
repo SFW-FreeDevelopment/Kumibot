@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
-namespace Kumibot.Database.Repositories;
+namespace Kumibot.Database.Repositories.Betting;
 
 public class BettingEventRepository
 {

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Discord.Commands;
 using Kumibot.Database.Repositories;
+using Kumibot.Database.Repositories.Gaming;
 
 namespace Kumibot.App.Commands.Games;
 

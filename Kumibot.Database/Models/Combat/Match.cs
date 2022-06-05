@@ -1,4 +1,4 @@
-﻿namespace Kumibot.Database.Models.CombatEvent;
+﻿namespace Kumibot.Database.Models.Combat;
 
 public class Match
 {
