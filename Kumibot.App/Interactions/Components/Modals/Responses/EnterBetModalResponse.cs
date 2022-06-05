@@ -1,7 +1,6 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Kumibot.Database.Models.Betting;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.Components.Modals.Responses;
@@ -22,7 +21,7 @@ public class EnterBetModalResponse : InteractionBase
         var bettingEventId = splitValues[0];
         var matchUpPosition = int.Parse(splitValues[1]);
         var fighterId = splitValues[2];
-        var bettingEvent = await _bettingEventRepository.GetBettingEventById(bettingEventId);
+        var bettingEvent = await _bettingEventRepository.GetById(bettingEventId);
         var matchUp = bettingEvent.MatchUps.FirstOrDefault(x => x.Position.Equals(matchUpPosition));
         var fighter = matchUp?.FighterOne.Id.Equals(fighterId) ?? false ? matchUp.FighterOne : matchUp?.FighterTwo;
         var dollarAmount = double.Parse(modal.BettingAmount);
@@ -33,7 +32,7 @@ public class EnterBetModalResponse : InteractionBase
             Fighter = fighter,
             MatchUpPosition = matchUpPosition
         });
-        var updatedEvent = await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
+        var updatedEvent = await _bettingEventRepository.Update(bettingEvent.Id, bettingEvent);
         if (updatedEvent is not null)
         {
             // Build the message to send.

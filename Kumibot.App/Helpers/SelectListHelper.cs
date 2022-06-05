@@ -1,6 +1,6 @@
 ﻿using Discord;
 
-namespace Kumibot.App.Interactions.Components.SelectLists.CombatSelectLists;
+namespace Kumibot.App.Helpers;
 
 public static class SelectListHelper
 {

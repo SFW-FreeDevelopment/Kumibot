@@ -6,7 +6,6 @@ using Discord.WebSocket;
 using Kumibot.App.Clients;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 using Kumibot.Database.Repositories.Combat;
 using Kumibot.Database.Repositories.Gaming;

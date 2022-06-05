@@ -2,7 +2,6 @@
 using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.Database.Models.Betting;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.SlashCommands.BettingSlashCommands;
@@ -21,7 +20,7 @@ public class CreateBettingEventSlashCommand : InteractionBase
     [SlashCommand("createbettingevent", "Creates a betting event for server members to place bets. Adds one match-up to start.")]
     public async Task CreateBettingEvent(string eventTitle, int type, bool startEvent)
     {
-        var newEvent = await _bettingEventRepository.CreateBettingEvent(new BettingEvent
+        var newEvent = await _bettingEventRepository.Create(new BettingEvent
         {
             EventTitle = eventTitle
         });

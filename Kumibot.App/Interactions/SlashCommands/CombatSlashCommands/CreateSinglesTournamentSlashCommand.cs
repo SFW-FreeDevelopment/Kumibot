@@ -1,16 +1,15 @@
 ﻿using Discord.Interactions;
 using Discord.WebSocket;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
 
-public class CreateTournamentSlashCommand
+public class CreateSinglesTournamentSlashCommand
 {
     private readonly CombatEventRepository _combatEventRepository;
     private readonly DiscordSocketClient _discordClient;
 
-    public CreateTournamentSlashCommand(CombatEventRepository combatEventRepository, DiscordSocketClient discordClient)
+    public CreateSinglesTournamentSlashCommand(CombatEventRepository combatEventRepository, DiscordSocketClient discordClient)
     {
         _combatEventRepository = combatEventRepository;
         _discordClient = discordClient;

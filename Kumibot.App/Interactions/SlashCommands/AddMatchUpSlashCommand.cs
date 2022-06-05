@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Discord.Interactions;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.SlashCommands;
@@ -17,7 +16,7 @@ public class AddMatchUpSlashCommand: InteractionBase
     [SlashCommand("addmatchup", "Add a match-up to an ongoing event")]
     public async Task AddMatchUp()
     {
-        var bettingEvents = await _bettingEventRepository.GetActiveBettingEvents();
+        var bettingEvents = await _bettingEventRepository.GetRunningBettingEvents();
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("add_match_up_select_list");
         foreach (var bettingEvent in bettingEvents)
         {

@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Discord.Interactions;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.SlashCommands.BettingSlashCommands;
@@ -18,7 +17,7 @@ public class PlaceBetSlashCommand : InteractionBase
     [SlashCommand("placebet", "Place a bet on an ongoing event's match-up", ignoreGroupNames: true)]
     public async Task PlaceBet()
     {
-        var bettingEvents = await _bettingEventRepository.GetActiveBettingEvents();
+        var bettingEvents = await _bettingEventRepository.GetRunningBettingEvents();
         var selectMenuBuilder = new SelectMenuBuilder().WithCustomId("place_bet_select_list");
         foreach (var bettingEvent in bettingEvents)
         {

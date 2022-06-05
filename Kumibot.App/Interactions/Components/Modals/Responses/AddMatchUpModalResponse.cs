@@ -1,10 +1,8 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Kumibot.App.Interactions.Components.Modals.CombatModals;
-using Kumibot.Database.Models;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Models.Combat;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Betting;
 
 namespace Kumibot.App.Interactions.Components.Modals.Responses;
@@ -19,9 +17,9 @@ public class AddMatchUpModalResponse : InteractionBase
     }
 
     [ModalInteraction("add_match_up")]
-    public async Task ModalResponse(AddSinglesMatchUpModal modal)
+    public async Task ModalResponse(AddSinglesMatchModal modal)
     {
-        var bettingEvent = await _bettingEventRepository.GetBettingEventById(modal.BettingEventId);
+        var bettingEvent = await _bettingEventRepository.GetById(modal.NeededValuesId);
         var position = bettingEvent.MatchUps.Count > 0 ? bettingEvent.MatchUps.Max(x => x.Position) + 1 : 1;
         //TODO: Hook Fighter repository and store fighters
         var fighterOne = new Fighter {Name = modal.FighterOneName};
@@ -30,16 +28,14 @@ public class AddMatchUpModalResponse : InteractionBase
         {
             FighterOne = fighterOne,
             FighterTwo = fighterTwo,
-            FighterOneOdds = GetOdds(modal.FighterOneOdds),
-            FighterTwoOdds = GetOdds(modal.FighterTwoOdds),
             Position = position
         });
-        var updatedEvent = await _bettingEventRepository.UpdateBettingEvent(bettingEvent.Id, bettingEvent);
+        var updatedEvent = await _bettingEventRepository.Update(bettingEvent.Id, bettingEvent);
         if (updatedEvent is not null)
         {
             // Build the message to send.
             var message =
-                $"{Mention} added Match-up to {bettingEvent.EventTitle}. {modal.FighterOneName} (Odds: {modal.FighterOneOdds}) vs {modal.FighterTwoName} (Odds: {modal.FighterTwoOdds})";
+                $"{Mention} added Match-up to {bettingEvent.EventTitle}.";
 
             // Specify the AllowedMentions so we don't actually ping everyone.
             AllowedMentions mentions = new();
@@ -48,24 +44,5 @@ public class AddMatchUpModalResponse : InteractionBase
             // Respond to the modal.
             await ReplyAsync(message, allowedMentions: mentions);
         }
-    }
-
-    private static int GetOdds(string oddsString)
-    {
-        bool isInt;
-        if (oddsString.Contains('-'))
-        {
-            isInt = int.TryParse(oddsString, out var negativeOdds);
-            if (isInt) return negativeOdds;
-        }
-
-        if (oddsString.Contains('+'))
-        {
-            isInt = int.TryParse(oddsString.Replace("+", string.Empty), out var positiveOdds);
-            if (isInt) return positiveOdds;
-        }
-
-        isInt = int.TryParse(oddsString, out var odds);
-        return isInt ? odds : 0;
     }
 }

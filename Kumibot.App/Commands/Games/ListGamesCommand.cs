@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using Discord.Commands;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Gaming;
 
 namespace Kumibot.App.Commands.Games;
@@ -17,7 +16,7 @@ public class ListGamesCommand : CommandBase
     [Command("listgames")]
     public async Task HandleCommandAsync()
     {
-        var games = await _gameRepository.GetAllGames();
+        var games = await _gameRepository.GetAll();
         var sb = new StringBuilder();
         if (games != null)
             foreach (var game in games)

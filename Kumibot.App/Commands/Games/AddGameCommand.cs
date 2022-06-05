@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using Discord.Commands;
 using Kumibot.Database.Models.Gaming;
-using Kumibot.Database.Repositories;
 using Kumibot.Database.Repositories.Gaming;
 
 namespace Kumibot.App.Commands.Games;
@@ -26,7 +25,7 @@ public class AddGameCommand : CommandBase
         }
 
         var gameToCreate = new Game { Slug = commandArgs[0], Name = sb.ToString().Trim() };
-        var game = await _gameRepository.CreateGame(gameToCreate);
+        var game = await _gameRepository.Create(gameToCreate);
         await ReplyAsync($"New game added: {game.Slug} - {game.Name}");
     }
 }
