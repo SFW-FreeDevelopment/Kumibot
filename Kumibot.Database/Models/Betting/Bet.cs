@@ -4,9 +4,10 @@ namespace Kumibot.Database.Models.Betting;
 
 public class Bet
 {
-    public ulong Owner { get; set; }
+    public ulong DiscordOwner { get; set; }
     public double DollarAmount { get; set; }
-    public Fighter Fighter { get; set; }
-    public int MatchUpPosition { get; set; }
+    public string FighterId { get; set; }
+    public int MatchPosition { get; set; }
+    public int MatchRound { get; set; }
     public bool Processed { get; set; }
 }
