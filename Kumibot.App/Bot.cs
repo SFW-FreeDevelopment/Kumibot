@@ -6,6 +6,8 @@ using Discord.WebSocket;
 using Kumibot.App.Clients;
 using Kumibot.App.Repositories;
 using Kumibot.App.Services;
+using Kumibot.Database.Models.Betting;
+using Kumibot.Database.Models.Combat;
 using Kumibot.Database.Repositories.Betting;
 using Kumibot.Database.Repositories.Combat;
 using Kumibot.Database.Repositories.Gaming;
@@ -48,11 +50,13 @@ public static class Bot
             .AddSingleton<WalletRepository>()
             .AddSingleton<BettingEventRepository>()
             .AddSingleton<CombatEventRepository>()
+            .AddSingleton<FighterRepository>()
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
             .AddScoped<SportsDataIORepository>()
-            .AddScoped<BettingService>()
+            .AddScoped<IKumibotService<BettingEvent>, BettingService>()
+            .AddScoped<IKumibotService<Fighter>, FighterService>()
             .BuildServiceProvider();
 
         _client.Log += Log;
