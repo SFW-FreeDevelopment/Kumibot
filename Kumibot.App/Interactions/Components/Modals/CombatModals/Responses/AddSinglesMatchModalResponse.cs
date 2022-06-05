@@ -25,7 +25,13 @@ public class AddSinglesMatchModalResponse : InteractionBase
         if (fighterOne.Equals(null) || fighterTwo.Equals(null)) await ReplyAsync("Can't create match.");
         else
         {
-            combatEvent.Matches.Add(new Match());
+            var maxPosition = combatEvent.Matches.Count > 0 ? combatEvent.Matches.Max(x => x.Position) : -1;
+            combatEvent.Matches.Add(new Match
+            {
+                FighterOneId = fighterOne.Id,
+                FighterTwoId = fighterTwo.Id,
+                Position =  maxPosition < 1 ? 1 : maxPosition + 1
+            });
             await _combatEventRepository.Update(combatEvent.Id, combatEvent);
             await ReplyAsync($"{Mention} added a match to {combatEvent.EventTitle}. {fighterOne.Name} vs {fighterTwo.Name}");
         }

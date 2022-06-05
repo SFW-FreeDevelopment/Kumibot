@@ -8,8 +8,8 @@ public class AddSinglesMatchModal : IModal
 {
     public string Title => "Add Singles Match";
     
-    [InputLabel("Needed Values Id")]
-    [ModalTextInput("needed_values_id")]
+    [InputLabel("Needed Values")]
+    [ModalTextInput("needed_values")]
     public string NeededValuesId { get; set; }
     
     [InputLabel("Fighter 1 Name")]
@@ -20,7 +20,7 @@ public class AddSinglesMatchModal : IModal
     [ModalTextInput("fighter_2_name", placeholder: "Fighter 2", maxLength: 50)]
     public string FighterTwoName { get; set; }
 
-    public static ModalBuilder GetAddSinglesMatchUpModal(string eventId)
+    public static ModalBuilder GetAddSinglesMatchModal(string eventId)
     {
         return new ModalBuilder()
             .WithTitle($"Add Singles Match")
