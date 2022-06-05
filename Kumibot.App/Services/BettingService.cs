@@ -51,4 +51,10 @@ public class BettingService : IKumibotService<BettingEvent>
     {
         throw new NotImplementedException();
     }
+
+    public async Task<BettingEvent> GetByEventId(string eventId)
+    {
+        var events = await _bettingEventRepository.GetRunningBettingEvents();
+        return events.FirstOrDefault(x => x.EventId.Equals(eventId));
+    }
 }

@@ -27,10 +27,10 @@ public class EnterBetModalResponse : InteractionBase
         var dollarAmount = double.Parse(modal.BettingAmount);
         bettingEvent.Bets.Add(new Bet
         {
-            Owner = User.Id,
+            DiscordOwner = User.Id,
             DollarAmount = dollarAmount,
             Fighter = fighter,
-            MatchUpPosition = matchUpPosition
+            MatchPosition = matchUpPosition
         });
         var updatedEvent = await _bettingEventRepository.Update(bettingEvent.Id, bettingEvent);
         if (updatedEvent is not null)

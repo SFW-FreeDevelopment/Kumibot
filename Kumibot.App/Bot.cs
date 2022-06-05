@@ -57,6 +57,7 @@ public static class Bot
             .AddScoped<SportsDataIORepository>()
             .AddScoped<BettingService>()
             .AddScoped<FighterService>()
+            .AddScoped<CombatService>()
             .BuildServiceProvider();
 
         _client.Log += Log;

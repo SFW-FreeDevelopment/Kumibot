@@ -30,10 +30,10 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
         if (matchUp is not null)
         {
             matchUp.WinnerId = fighterId;
-            foreach (var bet in bettingEvent.Bets.Where(x => !x.Processed && x.MatchUpPosition.Equals(matchUpPosition)))
+            foreach (var bet in bettingEvent.Bets.Where(x => !x.Processed && x.MatchPosition.Equals(matchUpPosition)))
             {
-                var wallet = await _walletRepository.GetByDiscordOwner(bet.Owner);
-                if (bet.Fighter.Id.Equals(matchUp.WinnerId))
+                var wallet = await _walletRepository.GetByDiscordOwner(bet.DiscordOwner);
+                if (bet.FighterId.Equals(matchUp.WinnerId))
                 {
                     var odds = 0;
                     if (matchUp.WinnerId != null && matchUp.WinnerId.Equals(matchUp.FighterOne.Id)) odds = matchUp.FighterOneOdds;
@@ -41,7 +41,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
                     var profit = CalculateProfit(bet.DollarAmount, odds);
                     wallet.Dollars += profit;
                     var winningMessage =
-                        $"<@{bet.Owner}> made ${profit} on {matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}!";
+                        $"<@{bet.DiscordOwner}> made ${profit} on {matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}!";
                 
                     AllowedMentions mentions = new();
                     mentions.AllowedTypes = AllowedMentionTypes.Users;
@@ -52,7 +52,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
                 {
                     wallet.Dollars -= bet.DollarAmount;
                     var losingMessage =
-                        $"<@{bet.Owner}> lost ${bet.DollarAmount} on {matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}!";
+                        $"<@{bet.DiscordOwner}> lost ${bet.DollarAmount} on {matchUp.FighterOne.Name} vs {matchUp.FighterTwo.Name}!";
                 
                     AllowedMentions mentions = new();
                     mentions.AllowedTypes = AllowedMentionTypes.Users;

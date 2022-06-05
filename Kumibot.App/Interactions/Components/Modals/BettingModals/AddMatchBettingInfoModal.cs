@@ -2,14 +2,14 @@
 using Discord.Interactions;
 
 namespace Kumibot.App.Interactions.Components.Modals.BettingModals;
-
+//TODO: Add AddMatchBettingInfoModal
 public class AddMatchBettingInfoModal : IModal
 {
     public string Title => "Add Match Betting Info";
     
-    [InputLabel("Needed Values Id")]
-    [ModalTextInput("needed_values_id")]
-    public string NeededValuesId { get; set; }
+    [InputLabel(Constants.NeededValues)]
+    [ModalTextInput(Constants.NeededValuesId)]
+    public string NeededValues { get; set; }
     
     [InputLabel("Fighter/Team 1 Odds")]
     [ModalTextInput("position_1_odds", placeholder: "+100", maxLength: 20)]
@@ -19,16 +19,16 @@ public class AddMatchBettingInfoModal : IModal
     [ModalTextInput("position_2_odds", placeholder: "-100", maxLength: 20)]
     public string PositionTwoOdds { get; set; }
     
-    public static ModalBuilder GetAddSinglesMatchModal(string eventId)
+    public static ModalBuilder GetAddMatchBettingInfoModal(string eventId, string matchUpPosition, string matchUpRound, string subjectOne, string subjectTwo)
     {
         return new ModalBuilder()
-            .WithTitle($"Add Singles Match")
-            .WithCustomId("add_singles_match")
+            .WithTitle("Add Match Betting Info")
+            .WithCustomId("add_match_betting_info")
             .AddTextInput(Constants.NeededValues, Constants.NeededValuesId, TextInputStyle.Short, "", null, null, true,
-                eventId)
-            .AddTextInput("Fighter/Team 1 Odds",
+                $"{eventId}")
+            .AddTextInput($"{subjectOne} Odds",
                 "fighter_1_odds", placeholder: "+100")
-            .AddTextInput("Fighter/Team 2 Odds",
+            .AddTextInput($"{subjectTwo} Odds",
                 "fighter_2_odds", placeholder: "-100");
     }
 }
