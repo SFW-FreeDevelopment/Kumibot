@@ -4,70 +4,13 @@ using MongoDB.Driver.Linq;
 
 namespace Kumibot.Database.Repositories.Betting;
 
-public class BettingEventRepository
+public class BettingEventRepository : BaseRepository<BettingEvent>
 {
-    private readonly IMongoClient _mongoClient;
-
-    public BettingEventRepository(IMongoClient mongoClient)
-    {
-        _mongoClient = mongoClient;
-    }
+    public BettingEventRepository(IMongoClient mongoClient) : base(mongoClient) { CollectionName = "bettingevents"; }
     
-    public async Task<List<BettingEvent>> GetAllBettingEvents()
-    {
-        var bettingEvents = await GetCollection().AsQueryable().ToListAsync();
-        return bettingEvents;
-    }
-    
-    public async Task<List<BettingEvent>> GetActiveBettingEvents()
+    public async Task<List<BettingEvent>> GetRunningBettingEvents()
     {
         var bettingEvents = await GetCollection().AsQueryable().Where(x => x.Status.Equals(BettingEventStatus.Running)).ToListAsync();
         return bettingEvents;
-    }
-    
-    public async Task<List<BettingEvent>> GetPendingBettingEvents()
-    {
-        var bettingEvents = await GetCollection().AsQueryable().Where(x => x.Status.Equals(BettingEventStatus.Created)).ToListAsync();
-        return bettingEvents;
-    }
-    
-    public async Task<BettingEvent> GetBettingEventById(string id)
-    {
-        var bettingEvent = await GetCollection().AsQueryable()
-            .FirstOrDefaultAsync(g => g.Id.Equals(id));
-        return bettingEvent;
-    }
-    
-    public async Task<BettingEvent> GetBettingEventByEventTitle(string eventTitle)
-    {
-        var bettingEvent = await GetCollection().AsQueryable()
-            .FirstOrDefaultAsync(g => g.EventTitle.Equals(eventTitle));
-        return bettingEvent;
-    }
-
-    public async Task<BettingEvent> CreateBettingEvent(BettingEvent data)
-    {
-        data.Id = Guid.NewGuid().ToString();
-        data.Version = 1;
-        data.CreatedAt = DateTime.UtcNow;
-        data.UpdatedAt = data.CreatedAt;
-        await GetCollection().InsertOneAsync(data);
-        var gameList = await GetCollection().AsQueryable().ToListAsync();
-        return gameList.FirstOrDefault(x => x.Id.Equals(data.Id));
-    }
-    
-    public async Task<BettingEvent> UpdateBettingEvent(string id, BettingEvent data)
-    {
-        data.UpdatedAt = DateTime.UtcNow;
-        data.Version++;
-        await GetCollection().ReplaceOneAsync(x => x.Id.Equals(id), data);
-        return data;
-    }
-    
-    private IMongoCollection<BettingEvent> GetCollection()
-    {
-        var database = _mongoClient.GetDatabase("kumibot");
-        var collection = database.GetCollection<BettingEvent>("bettingevents");
-        return collection;
     }
 }

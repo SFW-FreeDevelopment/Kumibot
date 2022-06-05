@@ -6,12 +6,7 @@ namespace Kumibot.Database.Repositories.Betting;
 
 public class WalletRepository : BaseRepository<Wallet>
 {
-    private readonly IMongoClient _mongoClient;
-    public WalletRepository(IMongoClient mongoClient) : base(mongoClient)
-    {
-        _mongoClient = mongoClient;
-        CollectionName = "wallets";
-    }
+    public WalletRepository(IMongoClient mongoClient) : base(mongoClient) { CollectionName = "wallets"; }
     
     public new async Task<Wallet> GetByDiscordOwner(ulong discordOwner)
     {
