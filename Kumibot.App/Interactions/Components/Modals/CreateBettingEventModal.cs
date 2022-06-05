@@ -1,7 +1,6 @@
 ﻿using Discord.Interactions;
-using Kumibot.Database.Models.Betting;
 
-namespace Kumibot.App.Interactions.Modals;
+namespace Kumibot.App.Interactions.Components.Modals;
 
 [Group("kumibot", "Kumibot commands")]
 public class CreateBettingEventModal : IModal

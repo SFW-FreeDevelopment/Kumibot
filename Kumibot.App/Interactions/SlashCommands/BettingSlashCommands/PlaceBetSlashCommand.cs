@@ -2,7 +2,7 @@
 using Discord.Interactions;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.SlashCommands;
+namespace Kumibot.App.Interactions.SlashCommands.BettingSlashCommands;
 
 public class PlaceBetSlashCommand : InteractionBase
 {

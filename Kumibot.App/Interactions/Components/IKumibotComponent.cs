@@ -1,6 +1,6 @@
 ﻿using Discord;
 
-namespace Kumibot.Components;
+namespace Kumibot.App.Interactions.Components;
 
 public interface IKumibotComponent<T> where T : Dictionary<string, string>
 {

@@ -1,9 +1,8 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Kumibot.Database.Repositories;
-using Microsoft.VisualBasic;
 
-namespace Kumibot.App.Interactions.MessageComponents.Responses.SelectList;
+namespace Kumibot.App.Interactions.Components.SelectLists.Responses;
 
 public class ProcessMatchUpResultsMatchUpSelectListResponse : InteractionBase
 {

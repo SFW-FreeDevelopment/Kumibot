@@ -3,7 +3,7 @@ using Discord.Interactions;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.Modals.Responses;
+namespace Kumibot.App.Interactions.Components.Modals.Responses;
 
 public class EnterBetModalResponse : InteractionBase
 {

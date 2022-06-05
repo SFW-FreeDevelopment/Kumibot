@@ -1,6 +1,6 @@
 ﻿using Discord.Interactions;
 
-namespace Kumibot.App.Interactions.Modals;
+namespace Kumibot.App.Interactions.Components.Modals;
 
 public class EnterBetModal: IModal
 {

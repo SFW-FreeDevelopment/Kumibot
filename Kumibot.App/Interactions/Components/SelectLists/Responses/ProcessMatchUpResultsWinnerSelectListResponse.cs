@@ -2,7 +2,7 @@
 using Discord.Interactions;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.MessageComponents.Responses.SelectList;
+namespace Kumibot.App.Interactions.Components.SelectLists.Responses;
 
 public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
 {
@@ -32,7 +32,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
             matchUp.WinnerId = fighterId;
             foreach (var bet in bettingEvent.Bets.Where(x => !x.Processed && x.MatchUpPosition.Equals(matchUpPosition)))
             {
-                var wallet = await _walletRepository.GetWalletByOwner(bet.Owner);
+                var wallet = await _walletRepository.GetByDiscordOwner(bet.Owner);
                 if (bet.Fighter.Id.Equals(matchUp.WinnerId))
                 {
                     var odds = 0;
@@ -61,7 +61,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
                 }
 
                 wallet.Dollars = Math.Round(wallet.Dollars, 2, MidpointRounding.ToZero);
-                await _walletRepository.UpdateWallet(wallet.Id, wallet);
+                await _walletRepository.Update(wallet.Id, wallet);
                 bet.Processed = true;
             }
 

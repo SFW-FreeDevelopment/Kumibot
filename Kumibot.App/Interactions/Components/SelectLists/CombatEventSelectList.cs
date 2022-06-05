@@ -1,9 +1,9 @@
-﻿namespace Kumibot.Components.SelectLists;
+﻿namespace Kumibot.App.Interactions.Components.SelectLists;
 
-public static class CombatEventSelectList : IKumibotComponent
+public static class CombatEventSelectList
 {
-    public static GetCombatEventSelectList()
+    public static void GetCombatEventSelectList()
     {
-        
+        throw new NotImplementedException();
     }
 }

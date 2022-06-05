@@ -4,7 +4,7 @@ using Discord.WebSocket;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.SlashCommands;
+namespace Kumibot.App.Interactions.SlashCommands.BettingSlashCommands;
 
 public class CreateBettingEventSlashCommand : InteractionBase
 {

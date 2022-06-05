@@ -4,7 +4,7 @@ using Kumibot.Database.Models;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
 
-namespace Kumibot.App.Interactions.Modals.Responses;
+namespace Kumibot.App.Interactions.Components.Modals.Responses;
 
 public class AddMatchUpModalResponse : InteractionBase
 {
@@ -16,7 +16,7 @@ public class AddMatchUpModalResponse : InteractionBase
     }
 
     [ModalInteraction("add_match_up")]
-    public async Task ModalResponse(AddMatchUpModal modal)
+    public async Task ModalResponse(AddSinglesMatchUpModal modal)
     {
         var bettingEvent = await _bettingEventRepository.GetBettingEventById(modal.BettingEventId);
         var position = bettingEvent.MatchUps.Count > 0 ? bettingEvent.MatchUps.Max(x => x.Position) + 1 : 1;
