@@ -14,27 +14,27 @@ public abstract class BaseRepository<T> where T : BaseResource
         _mongoClient = mongoClient;
     }
 
-    public async Task<List<T>> GetAll()
+    public virtual async Task<List<T>> GetAll()
     {
         var items = await GetCollection().AsQueryable().ToListAsync();
         return items;
     }
 
-    public async Task<T> GetById(string id)
+    public virtual async Task<T> GetById(string id)
     {
         var item = await GetCollection().AsQueryable()
             .FirstOrDefaultAsync(w => w.Id.Equals(id));
         return item;
     }
     
-    public async Task<T> GetByDiscordOwner(ulong discordOwner)
+    public virtual async Task<List<T>> GetByDiscordOwner(ulong discordOwner)
     {
-        var item = await GetCollection().AsQueryable()
-            .FirstOrDefaultAsync(w => w.DiscordOwner.Equals(discordOwner));
-        return item;
+        var items = await GetCollection().AsQueryable()
+            .Where(w => w.DiscordOwner.Equals(discordOwner)).ToListAsync();
+        return items;
     }
 
-    public async Task<T> Create(T data)
+    public virtual async Task<T> Create(T data)
     {
         data.Id = Guid.NewGuid().ToString();
         data.Version = 1;
@@ -45,7 +45,7 @@ public abstract class BaseRepository<T> where T : BaseResource
         return items.FirstOrDefault(x => x.Id.Equals(data.Id));
     }
 
-    public async Task<T> Update(string id, T data)
+    public virtual async Task<T> Update(string id, T data)
     {
         data.UpdatedAt = DateTime.UtcNow;
         data.Version++;
@@ -53,7 +53,7 @@ public abstract class BaseRepository<T> where T : BaseResource
         return data;
     }
 
-    public Task Delete(string id)
+    public virtual Task Delete(string id)
     {
         throw new NotImplementedException();
     }
