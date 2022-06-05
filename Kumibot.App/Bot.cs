@@ -12,7 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
 namespace Kumibot.App;
-
+/*
+ * TODO: Need to look into using an event driven format for handling parameters passed in to components
+ * The idea is to stop using the text fields and pass data around in the background
+ * Also would like to look into having events that can help with automated event creation
+ */
 public static class Bot
 {
     private static DiscordSocketClient _client;
@@ -26,7 +30,7 @@ public static class Bot
             .AddJsonFile("appsettings.json", true, true)
             .AddEnvironmentVariables()
             .Build();
-        
+
         _client = new DiscordSocketClient();
         _commands = new CommandService();
         _interactions = new InteractionService(_client.Rest);
@@ -35,7 +39,9 @@ public static class Bot
             .AddSingleton(_commands)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddSingleton<IConfiguration>(_ => configuration)
-            .AddScoped<IMongoClient, MongoClient>(_ => new MongoClient(MongoClientSettings.FromConnectionString(configuration["MongoDatabaseConnectionString"])))
+            .AddScoped<IMongoClient, MongoClient>(_ =>
+                new MongoClient(
+                    MongoClientSettings.FromConnectionString(configuration["MongoDatabaseConnectionString"])))
             .AddSingleton<GameRepository>()
             .AddSingleton<WalletRepository>()
             .AddSingleton<BettingEventRepository>()
@@ -45,9 +51,9 @@ public static class Bot
             .AddScoped<SportsDataIORepository>()
             .AddScoped<BettingService>()
             .BuildServiceProvider();
-        
+
         _client.Log += Log;
-        
+
         _client.Ready += RegisterInteractionsAsync;
 
         await RegisterCommandsAsync();
@@ -64,7 +70,7 @@ public static class Bot
         Console.WriteLine(arg);
         return Task.CompletedTask;
     }
-        
+
     private static async Task RegisterCommandsAsync()
     {
         await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
@@ -74,7 +80,21 @@ public static class Bot
     private static async Task RegisterInteractionsAsync()
     {
         await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
-        await _interactions.RegisterCommandsToGuildAsync(698640831363547157, false);
+        await _interactions.RegisterCommandsToGuildAsync(698640831363547157);
+        //await _interactions.RegisterCommandsGloballyAsync();
+        // foreach (var module in _interactions.Modules.Where(x => x.IsTopLevelGroup))
+        // {
+        //     var guild = _client.GetGuild(698640831363547157);
+        //     ulong[] validRoleIds = { 891147635543670844 };
+        //     var roles = guild.Roles.Where(r => validRoleIds.Contains(r.Id));
+        //     foreach (var role in roles)
+        //     {
+        //         Console.WriteLine(role.Id);
+        //     }
+        //     await _interactions.ModifySlashCommandPermissionsAsync(module, guild,
+        //         roles.Select(role => new ApplicationCommandPermission(role, true)).ToArray());
+        // }
+
         _client.InteractionCreated += HandleInteractionAsync;
         _client.ModalSubmitted += HandleModalAsync;
     }
@@ -111,7 +131,7 @@ public static class Bot
         if (!result.IsSuccess)
             Console.WriteLine(result.ErrorReason);
     }
-    
+
     private static async Task HandleModalAsync(SocketModal modal)
     {
         await modal.DeferAsync();

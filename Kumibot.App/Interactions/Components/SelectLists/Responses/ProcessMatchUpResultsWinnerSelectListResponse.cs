@@ -59,6 +59,8 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
                 
                     await ReplyAsync(losingMessage, allowedMentions: mentions);
                 }
+
+                wallet.Dollars = Math.Round(wallet.Dollars, 2, MidpointRounding.ToZero);
                 await _walletRepository.UpdateWallet(wallet.Id, wallet);
                 bet.Processed = true;
             }

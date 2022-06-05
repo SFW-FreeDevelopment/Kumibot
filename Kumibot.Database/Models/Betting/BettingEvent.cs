@@ -9,7 +9,6 @@ public class BettingEvent : BaseResource
     public List<Bet> Bets { get; set; } = new();
     public BettingEventStatus Status { get; set; } = BettingEventStatus.Created;
     public BettingEventType Type { get; set; } = BettingEventType.Single;
-    public bool Finished { get; set; }
     public DateTime? StartsOnDate { get; set; }
 }
 

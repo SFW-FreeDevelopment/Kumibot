@@ -13,7 +13,7 @@ public class PlaceBetSlashCommand : InteractionBase
         _bettingEventRepository = bettingEventRepository;
     }
     
-    [DefaultMemberPermissions(GuildPermission.SendMessages)]
+    [DefaultMemberPermissions(GuildPermission.UseApplicationCommands)]
     [SlashCommand("placebet", "Place a bet on an ongoing event's match-up", ignoreGroupNames: true)]
     public async Task PlaceBet()
     {

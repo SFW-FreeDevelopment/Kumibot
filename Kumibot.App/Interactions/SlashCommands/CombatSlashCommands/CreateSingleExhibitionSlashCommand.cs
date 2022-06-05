@@ -3,24 +3,25 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories;
+using Microsoft.VisualBasic;
 
 namespace Kumibot.App.Interactions.SlashCommands;
 
-public class CreateBettingEventSlashCommand : InteractionBase
+public class CreateSingleExhibitionSlashCommand : InteractionBase
 {
-    private readonly BettingEventRepository _bettingEventRepository;
+    private readonly CombatEventRepository _combatEventRepository;
     private readonly DiscordSocketClient _discordClient;
 
-    public CreateBettingEventSlashCommand(BettingEventRepository bettingEventRepository, DiscordSocketClient discordClient)
+    public CreateSingleExhibitionSlashCommand(CombatEventRepository combatEventRepository, DiscordSocketClient discordClient)
     {
-        _bettingEventRepository = bettingEventRepository;
+        _combatEventRepository = combatEventRepository;
         _discordClient = discordClient;
     }
     //TODO: Hook up startEvent option
     [SlashCommand("createbettingevent", "Creates a betting event for server members to place bets. Adds one match-up to start.")]
-    public async Task CreateBettingEvent(string eventTitle, bool startEvent)
+    public async Task CreateBettingEvent(string eventTitle, int type, bool startEvent)
     {
-        var newEvent = await _bettingEventRepository.CreateBettingEvent(new BettingEvent
+        var newEvent = await _combatEventRepository.Create(new BettingEvent
         {
             EventTitle = eventTitle
         });
