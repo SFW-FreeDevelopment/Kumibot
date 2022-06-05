@@ -45,6 +45,7 @@ public static class Bot
             .AddSingleton<GameRepository>()
             .AddSingleton<WalletRepository>()
             .AddSingleton<BettingEventRepository>()
+            .AddSingleton<CombatEventRepository>()
             .AddScoped<SportRadarClient>()
             .AddScoped<SportRadarRepository>()
             .AddScoped<SportsDataIOClient>()
