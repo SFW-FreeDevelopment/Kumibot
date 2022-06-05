@@ -29,7 +29,7 @@ public class EnterBetModalResponse : InteractionBase
         {
             DiscordOwner = User.Id,
             DollarAmount = dollarAmount,
-            Fighter = fighter,
+            FighterId = fighterId,
             MatchPosition = matchUpPosition
         });
         var updatedEvent = await _bettingEventRepository.Update(bettingEvent.Id, bettingEvent);
