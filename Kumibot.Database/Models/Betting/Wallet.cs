@@ -2,6 +2,5 @@
 
 public class Wallet : BaseResource
 {
-    public ulong Owner { get; set; }
     public double Dollars { get; set; }
 }

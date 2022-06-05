@@ -16,8 +16,8 @@ public class AddWalletCommand : CommandBase
     [Command("addwallet")]
     public async Task HandleCommandAsync()
     {
-        var walletToCreate = new Wallet { Owner = GuildUser.Id, Dollars = 100000.00};
-        var wallet = await _walletRepository.CreateWallet(walletToCreate);
-        await ReplyAsync($"New wallet added for <@{wallet.Owner}>");
+        var walletToCreate = new Wallet { DiscordOwner = GuildUser.Id, Dollars = 100000.00};
+        var wallet = await _walletRepository.Create(walletToCreate);
+        await ReplyAsync($"New wallet added for <@{wallet.DiscordOwner}>");
     }
 }

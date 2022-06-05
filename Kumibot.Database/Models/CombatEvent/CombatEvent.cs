@@ -6,6 +6,7 @@ public class CombatEvent : BaseResource
     public List<Match> Matches { get; set; }
     public CombatEventType Type { get; set; }
     public CombatEventSubType? SubType { get; set; }
+    public CombatEventStatus Status { get; set; } = CombatEventStatus.Created;
 }
 
 public enum CombatEventType
@@ -22,4 +23,13 @@ public enum CombatEventSubType
     Grudge,
     Rival,
     Title
+}
+
+public enum CombatEventStatus
+{
+    Created,
+    Pending,
+    Running,
+    Processing,
+    Finished
 }

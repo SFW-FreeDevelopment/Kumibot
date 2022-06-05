@@ -16,11 +16,11 @@ public class CheckWalletCommand : CommandBase
     public async Task HandleCommandAsync()
     {
         var walletOwner = GuildUser.Id;
-        var wallet = await _walletRepository.GetWalletByOwner(walletOwner);
+        var wallet = await _walletRepository.GetByDiscordOwner(walletOwner);
         if (wallet != null)
         {
             var formattedDollars = wallet.Dollars.ToString("0.00");
-            await ReplyAsync($"Owner: <@{wallet.Owner}>\nFunds: {formattedDollars}");
+            await ReplyAsync($"Owner: <@{wallet.DiscordOwner}>\nFunds: {formattedDollars}");
         }
         else
         {
