@@ -4,7 +4,7 @@ using Kumibot.Database.Models.Combat;
 using Kumibot.Database.Repositories.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
-
+//TODO: Automatically add betting event when CombatEvent is created
 public class CreateSinglesExhibitionSlashCommand : InteractionBase
 {
     private readonly CombatEventRepository _combatEventRepository;

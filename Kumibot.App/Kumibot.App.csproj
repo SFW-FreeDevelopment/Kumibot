@@ -32,9 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Interactions\Components\Modals\BettingModals\Responses" />
       <Folder Include="Interactions\Components\Modals\GamingModals\Responses" />
-      <Folder Include="Interactions\Components\SelectLists\CombatSelectLists\Responses" />
       <Folder Include="Interactions\Components\SelectLists\GamingSelectLists\Responses" />
       <Folder Include="Interactions\SlashCommands\GamingSlashCommands" />
     </ItemGroup>

@@ -3,7 +3,7 @@ using Discord.WebSocket;
 using Kumibot.Database.Repositories.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
-
+//TODO: Automatically add betting event when CombatEvent is created
 public class CreateSinglesTournamentSlashCommand
 {
     private readonly CombatEventRepository _combatEventRepository;
@@ -14,9 +14,9 @@ public class CreateSinglesTournamentSlashCommand
         _combatEventRepository = combatEventRepository;
         _discordClient = discordClient;
     }
-    //TODO: Hook up startEvent option
+
     [SlashCommand("createsinglestournament", "Creates a 1 vs 1 tournament")]
-    public async Task CreateSinglesTournament(string eventTitle, bool startNow)
+    public async Task CreateSinglesTournament(string eventTitle)
     {
         
     }

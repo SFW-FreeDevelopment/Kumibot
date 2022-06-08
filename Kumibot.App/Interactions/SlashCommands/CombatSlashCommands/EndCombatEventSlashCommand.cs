@@ -20,7 +20,7 @@ public class EndCombatEventSlashCommand : InteractionBase
         if (combatEvents.Count > 0)
         {
             var selectListOptions = combatEvents.Select(x => (x.EventTitle, x.Id));
-            var combatEventSelectList = SelectListHelper.GetSelectList("end_singles_exhibition_select_list", selectListOptions.ToDictionary(x => x.EventTitle, x=> x.Id));
+            var combatEventSelectList = SelectListHelper.GetSelectList("end_combat_event_select_list", selectListOptions.ToDictionary(x => x.EventTitle, x=> x.Id));
             await RespondAsync("Select the event to end:", components: combatEventSelectList.Build());
         }
         else
