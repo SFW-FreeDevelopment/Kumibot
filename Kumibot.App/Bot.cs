@@ -21,6 +21,7 @@ namespace Kumibot.App;
  * The idea is to stop using the text fields and pass data around in the background
  * Also would like to look into having events that can help with automated event creation
  */
+//TODO: Hook into actual Discord events
 public static class Bot
 {
     private static DiscordSocketClient _client;
