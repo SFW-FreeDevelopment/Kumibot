@@ -20,4 +20,16 @@ public static class BettingHelper
         isInt = int.TryParse(oddsString, out var odds);
         return isInt ? odds : 0;
     }
+    
+    public static double CalculateProfit(double betAmount, int odds)
+    {
+        var profit = odds switch
+        {
+            > 0 => betAmount * Math.Abs((double)odds / 100),
+            < 0 => Math.Abs(betAmount / ((double)odds / 100)),
+            _ => 0.00
+        };
+
+        return profit;
+    }
 }
