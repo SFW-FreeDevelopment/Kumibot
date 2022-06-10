@@ -14,8 +14,8 @@ public class EndMatchSlashCommand : InteractionBase
         _combatService = combatService;
     }
 
-    [SlashCommand("startcombatevent", "Begins a combat event.")]
-    public async Task StartCombatEvent()
+    [SlashCommand("endmatch", "Ends a match on a combat event..")]
+    public async Task EndMatch()
     {
         var combatEvents = await _combatService.GetByDiscordOwner(User.Id);
         if (combatEvents.Count > 0)

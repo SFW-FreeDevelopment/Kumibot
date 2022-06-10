@@ -12,8 +12,7 @@ public class PlaceBetFighterSelectListResponse: InteractionBase
     {
         _bettingEventRepository = bettingEventRepository;
     }
-
-    [ComponentInteraction("place_bet_fighter_select_list")]
+    
     public async Task ComponentResponse()
     {
         var interaction = (IComponentInteraction)Interaction;

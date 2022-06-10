@@ -32,7 +32,7 @@ public class ProcessMatchUpResultsWinnerSelectListResponse: InteractionBase
             matchUp.WinnerId = fighterId;
             foreach (var bet in bettingEvent.Bets.Where(x => !x.Processed && x.MatchPosition.Equals(matchUpPosition)))
             {
-                var wallet = await _walletRepository.GetByDiscordOwner(bet.DiscordOwner);
+                var wallet = await _walletRepository.GetByDiscordOwner(bet.DiscordOwner ?? 0);
                 if (bet.FighterId.Equals(matchUp.WinnerId))
                 {
                     var odds = 0;
