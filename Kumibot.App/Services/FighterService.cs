@@ -5,8 +5,8 @@ namespace Kumibot.App.Services;
 
 public class FighterService : IKumibotService<Fighter>
 {
-    private FighterRepository _fighterRepository { get; set; }
-    private CombatEventRepository _combatEventRepository { get; set; }
+    private readonly FighterRepository _fighterRepository;
+    private readonly CombatEventRepository _combatEventRepository;
 
     public FighterService(FighterRepository fighterRepository, CombatEventRepository combatEventRepository)
     {

@@ -6,8 +6,8 @@ namespace Kumibot.App.Services;
 
 public class BettingService : IKumibotService<BettingEvent>
 {
-    private BettingEventRepository _bettingEventRepository { get; set; }
-    private CombatEventRepository _combatEventRepository { get; set; }
+    private readonly BettingEventRepository _bettingEventRepository;
+    private readonly CombatEventRepository _combatEventRepository;
 
     public BettingService(BettingEventRepository bettingEventRepository, CombatEventRepository combatEventRepository)
     {
