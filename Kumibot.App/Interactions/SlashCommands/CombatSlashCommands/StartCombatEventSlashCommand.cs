@@ -19,7 +19,7 @@ public class StartCombatEventSlashCommand : InteractionBase
     [SlashCommand("startcombatevent", "Begins a combat event.")]
     public async Task StartCombatEvent()
     {
-        var combatEvents = await _combatService.GetAll();
+        var combatEvents = await _combatService.GetByDiscordOwner(User.Id);
         if (combatEvents.Count > 0)
         {
             var selectListOptions = combatEvents.Where(x => x.Status.Equals(CombatEventStatus.Created)).Select(x => (x.EventTitle, x.Id));
@@ -28,7 +28,7 @@ public class StartCombatEventSlashCommand : InteractionBase
         }
         else
         {
-            await ReplyAsync($"Could not find any combat events.");
+            await ReplyAsync($"Could not find any combat events owned by {Mention}.");
         }
     }
 }
