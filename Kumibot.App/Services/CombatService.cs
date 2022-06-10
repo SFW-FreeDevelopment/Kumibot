@@ -36,4 +36,9 @@ public class CombatService : IKumibotService<CombatEvent>
     {
         throw new NotImplementedException();
     }
+
+    public async Task<List<CombatEvent>> GetByDiscordOwner(ulong discordOwnerId)
+    {
+        return await _combatEventRepository.GetByDiscordOwner(discordOwnerId);
+    }
 }
