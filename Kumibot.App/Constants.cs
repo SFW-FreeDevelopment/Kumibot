@@ -18,6 +18,7 @@ public static class Constants
 
     #region ComponentIds
 
+    public const string EndMatchCombatEventSelectListId = "end_match_combat_event_select_list";
     public const string PlaceBetCombatEventSelectListId = "place_bet_combat_event_select_list";
     public const string PlaceBetFighterSelectListId = "place_bet_fighter_select_list";
     public const string PlaceBetModal = "place_bet_modal";
