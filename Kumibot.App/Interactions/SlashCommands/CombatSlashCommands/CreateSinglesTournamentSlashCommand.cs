@@ -1,20 +1,17 @@
 ﻿using Discord.Interactions;
-using Discord.WebSocket;
 using Kumibot.App.Interactions.Components.Modals.CombatModals;
+using Kumibot.App.Services;
 using Kumibot.Database.Models.Combat;
-using Kumibot.Database.Repositories.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
 //TODO: Automatically add betting event when CombatEvent is created
 public class CreateSinglesTournamentSlashCommand : InteractionBase
 {
-    private readonly CombatEventRepository _combatEventRepository;
-    private readonly DiscordSocketClient _discordClient;
+    private readonly CombatService _combatService;
 
-    public CreateSinglesTournamentSlashCommand(CombatEventRepository combatEventRepository, DiscordSocketClient discordClient)
+    public CreateSinglesTournamentSlashCommand(CombatService combatService)
     {
-        _combatEventRepository = combatEventRepository;
-        _discordClient = discordClient;
+        _combatService = combatService;
     }
 
     [SlashCommand("createsinglestournament", "Creates a 1 vs 1 tournament")]
@@ -26,7 +23,7 @@ public class CreateSinglesTournamentSlashCommand : InteractionBase
             Type = CombatEventType.Tournament,
             DiscordOwner = User.Id
         };
-        var newEvent = await _combatEventRepository.Create(eventToCreate);
+        var newEvent = await _combatService.Create(eventToCreate);
         if (newEvent is not null)
         {
             await ReplyAsync($"{Mention} has created a 1 vs 1 tournament: {eventTitle}!");
