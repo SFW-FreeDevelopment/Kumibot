@@ -22,7 +22,7 @@ public class AddSinglesMatchModalResponse : InteractionBase
         var combatEvent = await _combatService.GetById(modal.NeededValuesId);
         var fighterOne = await _fighterService.Create(new Fighter { Name = modal.FighterOneName });
         var fighterTwo = await _fighterService.Create(new Fighter { Name = modal.FighterTwoName });
-        if (fighterOne.Equals(null) || fighterTwo.Equals(null)) await ReplyAsync("Can't create match.");
+        if (fighterOne == null || fighterTwo == null) await ReplyAsync("Can't create match.");
         else
         {
             var maxPosition = combatEvent.Matches.Count > 0 ? combatEvent.Matches.Max(x => x.Position) : -1;

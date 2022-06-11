@@ -28,10 +28,10 @@ public class StartCombatEventSelectListResponse : InteractionBase
             var combatEventId = interaction.Data.Values.FirstOrDefault();
             var combatEvent =
                 await _combatService.GetById(combatEventId ?? string.Empty);
-            if (!combatEvent.Equals(null))
+            if (combatEvent != null)
             {
                 var bettingEvent = await _bettingService.GetByCombatEventId(combatEvent.Id);
-                if (!bettingEvent.Equals(null))
+                if (bettingEvent != null)
                 {
                     bettingEvent.IsActive = true;
                     combatEvent.Status = CombatEventStatus.Running;

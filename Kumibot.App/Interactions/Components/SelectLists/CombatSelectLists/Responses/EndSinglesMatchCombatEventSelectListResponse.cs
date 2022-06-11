@@ -27,14 +27,14 @@ public class EndSinglesMatchCombatEventSelectListResponse : InteractionBase
             var combatEventId = interaction.Data.Values.FirstOrDefault();
             var combatEvent =
                 await _combatService.GetById(combatEventId ?? string.Empty);
-            if (!combatEvent.Equals(null))
+            if (combatEvent != null)
             {
                 var selectListOptions = new Dictionary<string, string>();
                 foreach (var match in combatEvent.Matches)
                 {
                     var fighterOne = await _fighterService.GetById(match.FighterOneId);
                     var fighterTwo = await _fighterService.GetById(match.FighterTwoId);
-                    if (!fighterOne.Equals(null) && !fighterTwo.Equals(null))
+                    if (fighterOne != null && fighterTwo != null)
                     {
                         selectListOptions.Add($"{fighterOne.Name} vs {fighterTwo.Name}", $"{combatEvent.Id}_{match.Round}_{match.Position}");
                     }

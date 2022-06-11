@@ -35,7 +35,7 @@ public class PlaceBetFighterSelectListResponse : InteractionBase
         {
             CombatEventId = combatEvent.Id
         });
-        if (!bettingEvent.Equals(null))
+        if (bettingEvent != null)
         {
             switch (combatEvent.Type)
             {
