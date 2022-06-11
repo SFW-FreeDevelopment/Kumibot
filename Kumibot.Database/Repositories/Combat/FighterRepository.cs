@@ -11,7 +11,7 @@ public class FighterRepository : BaseRepository<Fighter>
     public async Task<Fighter> GetFighterByName(string fighterName)
     {
         var item = await GetCollection().AsQueryable()
-            .FirstOrDefaultAsync(w => w.Name.Equals(fighterName));
+            .FirstOrDefaultAsync(w => w.Name.Equals(fighterName, StringComparison.OrdinalIgnoreCase));
         return item;
     }
 }
