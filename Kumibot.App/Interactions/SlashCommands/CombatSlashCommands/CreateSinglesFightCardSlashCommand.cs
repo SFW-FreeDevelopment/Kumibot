@@ -32,7 +32,8 @@ public class CreateSinglesFightCardSlashCommand : InteractionBase
         {
             var bettingEventToCreate = new BettingEvent
             {
-                CombatEventId = newEvent.Id
+                CombatEventId = newEvent.Id,
+                IsActive = false
             };
             await _bettingService.Create(bettingEventToCreate);
             await ReplyAsync($"{Mention} has created a 1 vs 1 fight card: {eventTitle}!");
