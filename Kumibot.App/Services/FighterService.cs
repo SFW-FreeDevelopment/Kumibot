@@ -26,6 +26,7 @@ public class FighterService : IKumibotService<Fighter>
 
     public async Task<Fighter> Create(Fighter data)
     {
+        data.Name = data.Name.Trim();
         var fighter = await _fighterRepository.GetFighterByName(data.Name);
         if (fighter is not null) return fighter;
         fighter = await _fighterRepository.Create(data);
