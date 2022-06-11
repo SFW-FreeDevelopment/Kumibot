@@ -1,6 +1,6 @@
 ﻿namespace Kumibot.App.Interactions.Components.SelectLists.CombatSelectLists.Responses;
 //TODO: Process EndMatchCombatEventSelectListResponse
-public class EndMatchMatchSelectListResponse
+public class EndSinglesMatchMatchSelectListResponse
 {
     
 }

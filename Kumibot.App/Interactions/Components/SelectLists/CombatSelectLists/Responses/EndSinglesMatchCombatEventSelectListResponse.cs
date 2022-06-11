@@ -7,21 +7,20 @@ using Kumibot.Exceptions;
 
 namespace Kumibot.App.Interactions.Components.SelectLists.CombatSelectLists.Responses;
 
-public class EndMatchCombatEventSelectListResponse : InteractionBase
+public class EndSinglesMatchCombatEventSelectListResponse : InteractionBase
 {
     private readonly CombatService _combatService;
     private readonly FighterService _fighterService;
     
-    public EndMatchCombatEventSelectListResponse(CombatService combatService, FighterService fighterService)
+    public EndSinglesMatchCombatEventSelectListResponse(CombatService combatService, FighterService fighterService)
     {
         _combatService = combatService;
         _fighterService = fighterService;
     }
 
-    [ComponentInteraction(Constants.EndMatchCombatEventSelectListId)]
+    [ComponentInteraction(Constants.EndSinglesMatchCombatEventSelectListId)]
     public async Task ComponentResponse()
     {
-        //TODO: Finish logic for getting fighter data and building select list options
         try
         {
             var interaction = (IComponentInteraction)Interaction;
@@ -33,9 +32,14 @@ public class EndMatchCombatEventSelectListResponse : InteractionBase
                 var selectListOptions = new Dictionary<string, string>();
                 foreach (var match in combatEvent.Matches)
                 {
-                    //selectListOptions.Add();
+                    var fighterOne = await _fighterService.GetById(match.FighterOneId);
+                    var fighterTwo = await _fighterService.GetById(match.FighterTwoId);
+                    if (!fighterOne.Equals(null) && !fighterTwo.Equals(null))
+                    {
+                        selectListOptions.Add($"{fighterOne.Name} vs {fighterTwo.Name}", $"{combatEvent.Id}_{match.Round}_{match.Position}");
+                    }
                 }
-                var combatEventSelectList = SelectListHelper.GetSelectList(Constants.AddSinglesMatchCombatEventSelectListId, selectListOptions);
+                var combatEventSelectList = SelectListHelper.GetSelectList(Constants.EndSinglesMatchMatchSelectListId, selectListOptions);
                 await RespondAsync("Select the match to end:", components: combatEventSelectList.Build());
             }
             else
