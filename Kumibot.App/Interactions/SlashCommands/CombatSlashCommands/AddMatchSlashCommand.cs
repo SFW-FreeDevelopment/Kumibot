@@ -5,11 +5,11 @@ using Kumibot.Database.Models.Combat;
 
 namespace Kumibot.App.Interactions.SlashCommands.CombatSlashCommands;
 
-public class AddMatchSlashCommand: InteractionBase
+public class AddSinglesMatchSlashCommand: InteractionBase
 {
     private readonly CombatService _combatService;
 
-    public AddMatchSlashCommand(CombatService combatService)
+    public AddSinglesMatchSlashCommand(CombatService combatService)
     {
         _combatService = combatService;
     }
@@ -21,7 +21,7 @@ public class AddMatchSlashCommand: InteractionBase
         if (combatEvents.Count > 0)
         {
             var selectListOptions = combatEvents.Where(x => x.Status.Equals(CombatEventStatus.Created)).Select(x => (x.EventTitle, x.Id));
-            var combatEventSelectList = SelectListHelper.GetSelectList(Constants.AddMatchCombatEventSelectListId, selectListOptions.ToDictionary(x => x.EventTitle, x=> x.Id));
+            var combatEventSelectList = SelectListHelper.GetSelectList(Constants.AddSinglesMatchCombatEventSelectListId, selectListOptions.ToDictionary(x => x.EventTitle, x=> x.Id));
             await RespondAsync("Select the event to add the match to:", components: combatEventSelectList.Build());
         }
         else
