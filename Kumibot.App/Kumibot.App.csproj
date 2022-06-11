@@ -29,6 +29,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
+      <ProjectReference Include="..\Kumibot.Exceptions\Kumibot.Exceptions.csproj" />
     </ItemGroup>
 
     <ItemGroup>

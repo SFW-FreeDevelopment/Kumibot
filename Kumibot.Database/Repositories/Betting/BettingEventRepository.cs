@@ -8,9 +8,9 @@ public class BettingEventRepository : BaseRepository<BettingEvent>
 {
     public BettingEventRepository(IMongoClient mongoClient) : base(mongoClient) { CollectionName = "bettingevents"; }
     
-    public async Task<List<BettingEvent>> GetRunningBettingEvents()
+    public async Task<List<BettingEvent>> GetActiveBettingEvents()
     {
-        var bettingEvents = await GetCollection().AsQueryable().Where(x => x.Status.Equals(BettingEventStatus.Running)).ToListAsync();
+        var bettingEvents = await GetCollection().AsQueryable().Where(x => x.IsActive).ToListAsync();
         return bettingEvents;
     }
 }

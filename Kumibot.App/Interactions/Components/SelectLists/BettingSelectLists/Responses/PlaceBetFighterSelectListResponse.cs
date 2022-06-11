@@ -30,10 +30,10 @@ public class PlaceBetFighterSelectListResponse: InteractionBase
         var combatEvent =
             await _combatService.GetById(combatEventId ?? string.Empty);
         var matches = combatEvent.Matches;
-        var bettingEvent = await _bettingService.GetByEventId(combatEvent.Id);
+        var bettingEvent = await _bettingService.GetByCombatEventId(combatEvent.Id);
         bettingEvent ??= await _bettingService.Create(new BettingEvent
         {
-            EventId = combatEvent.Id
+            CombatEventId = combatEvent.Id
         });
         if (!bettingEvent.Equals(null))
         {

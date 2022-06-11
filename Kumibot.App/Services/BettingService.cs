@@ -1,6 +1,8 @@
-﻿using Kumibot.Database.Models.Betting;
+﻿using System.Net;
+using Kumibot.Database.Models.Betting;
 using Kumibot.Database.Repositories.Betting;
 using Kumibot.Database.Repositories.Combat;
+using Kumibot.Exceptions;
 
 namespace Kumibot.App.Services;
 
@@ -13,18 +15,6 @@ public class BettingService : IKumibotService<BettingEvent>
     {
         _bettingEventRepository = bettingEventRepository;
         _combatEventRepository = combatEventRepository;
-    }
-
-    public async Task<BettingEvent> ProcessBets(string eventId)
-    {
-        var activeEvents = await _bettingEventRepository.GetRunningBettingEvents();
-        var targetEvent = activeEvents.FirstOrDefault(x => x.EventId.Equals(eventId));
-        if (targetEvent is null) return targetEvent;
-        foreach (var bet in targetEvent.Bets)
-        {
-            
-        }
-        return targetEvent;
     }
 
     public Task<List<BettingEvent>> GetAll()
@@ -52,9 +42,20 @@ public class BettingService : IKumibotService<BettingEvent>
         throw new NotImplementedException();
     }
 
-    public async Task<BettingEvent> GetByEventId(string eventId)
+    public async Task<BettingEvent> GetByCombatEventId(string combatEventId)
     {
-        var events = await _bettingEventRepository.GetRunningBettingEvents();
-        return events.FirstOrDefault(x => x.EventId.Equals(eventId));
+        var events = await _bettingEventRepository.GetActiveBettingEvents();
+        return events.FirstOrDefault(x => x.CombatEventId.Equals(combatEventId));
+    }
+    
+    public async Task<BettingEvent> ProcessBets(string combatEventId)
+    {
+        var targetEvent = await GetByCombatEventId(combatEventId);
+        if (targetEvent is null) throw new KumibotException(HttpStatusCode.NotFound);
+        foreach (var bet in targetEvent.Bets)
+        {
+            
+        }
+        return targetEvent;
     }
 }
