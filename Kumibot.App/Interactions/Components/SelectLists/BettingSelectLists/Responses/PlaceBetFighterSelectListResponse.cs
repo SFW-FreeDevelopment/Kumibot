@@ -7,7 +7,7 @@ using Kumibot.Database.Models.Combat;
 
 namespace Kumibot.App.Interactions.Components.SelectLists.BettingSelectLists.Responses;
 
-public class PlaceBetFighterSelectListResponse: InteractionBase
+public class PlaceBetFighterSelectListResponse : InteractionBase
 {
     private readonly BettingService _bettingService;
     private readonly CombatService _combatService;
