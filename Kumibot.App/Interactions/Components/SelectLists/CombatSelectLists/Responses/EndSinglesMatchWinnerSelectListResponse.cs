@@ -20,7 +20,7 @@ public class EndSinglesMatchWinnerSelectListResponse : InteractionBase
         _bettingService = bettingService;
     }
 
-    [ComponentInteraction(Constants.EndSinglesMatchMatchSelectListId)]
+    [ComponentInteraction(Constants.EndSinglesMatchWinnerSelectListId)]
     public async Task ComponentResponse()
     {
         try

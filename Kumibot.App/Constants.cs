@@ -21,9 +21,9 @@ public static class Constants
     public const string AddMatchBettingInfoCombatEventSelectListId = "add_match_betting_info_combat_event_select_list";
     public const string AddMatchBettingInfoModalId = "add_match_betting_info_modal";
     public const string AddSinglesMatchCombatEventSelectListId = "add_singles_match_combat_event_select_list";
-    public const string EndSinglesMatchCombatEventSelectListId = "end_match_combat_event_select_list";
-    public const string EndSinglesMatchMatchSelectListId = "end_match_match_select_list";
-    public const string EndSinglesMatchWinnerSelectListId = "end_match_winner_select_list";
+    public const string EndSinglesMatchCombatEventSelectListId = "end_singles_match_combat_event_select_list";
+    public const string EndSinglesMatchMatchSelectListId = "end_singles_match_match_select_list";
+    public const string EndSinglesMatchWinnerSelectListId = "end_singles_match_winner_select_list";
     public const string PlaceBetCombatEventSelectListId = "place_bet_combat_event_select_list";
     public const string PlaceBetFighterSelectListId = "place_bet_fighter_select_list";
     public const string PlaceBetModalId = "place_bet_modal";
