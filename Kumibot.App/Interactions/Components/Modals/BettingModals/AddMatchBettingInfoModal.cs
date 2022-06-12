@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Interactions;
+using Kumibot.Database.Models.Combat;
 
 namespace Kumibot.App.Interactions.Components.Modals.BettingModals;
 //TODO: Add AddMatchBettingInfoModal
@@ -19,16 +20,16 @@ public class AddMatchBettingInfoModal : IModal
     [ModalTextInput("position_2_odds", placeholder: "-100", maxLength: 20)]
     public string PositionTwoOdds { get; set; }
     
-    public static ModalBuilder GetAddMatchBettingInfoModal(string eventId, string matchUpPosition, string matchUpRound, string subjectOne, string subjectTwo)
+    public static ModalBuilder GetAddMatchBettingInfoModal(string eventId, Match match, string fighterOne, string fighterTwo)
     {
         return new ModalBuilder()
             .WithTitle("Add Match Betting Info")
-            .WithCustomId("add_match_betting_info")
+            .WithCustomId(Constants.AddMatchBettingInfoModalId)
             .AddTextInput(Constants.NeededValues, Constants.NeededValuesId, TextInputStyle.Short, "", null, null, true,
-                $"{eventId}")
-            .AddTextInput($"{subjectOne} Odds",
+                $"{eventId}_{match.Round}_{match.Position}_{match.FighterOneId}_{match.FighterTwoId}")
+            .AddTextInput($"{fighterOne} Odds",
                 "fighter_1_odds", placeholder: "+100")
-            .AddTextInput($"{subjectTwo} Odds",
+            .AddTextInput($"{fighterTwo} Odds",
                 "fighter_2_odds", placeholder: "-100");
     }
 }

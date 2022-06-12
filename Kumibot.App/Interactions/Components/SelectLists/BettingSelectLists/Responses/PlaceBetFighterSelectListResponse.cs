@@ -43,7 +43,7 @@ public class PlaceBetFighterSelectListResponse : InteractionBase
                     break;
                 case CombatEventType.SingleExhibition:
                     var match = matches.FirstOrDefault();
-                    var placeBetModal = PlaceBetModal.GetPlaceBetModal(combatEventId, match?.Position.ToString(), match?.Round.ToString(), fighterId);
+                    var placeBetModal = PlaceBetModal.GetPlaceBetModal(combatEventId, match, fighterId);
                     break;
                 case CombatEventType.Team:
                     break;
