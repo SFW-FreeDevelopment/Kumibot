@@ -6,4 +6,5 @@ public class BettingEvent : BaseResource
 {
     public string CombatEventId { get; set; }
     public List<Bet> Bets { get; set; } = new();
+    public List<Odds> Odds { get; set; } = new();
 }
