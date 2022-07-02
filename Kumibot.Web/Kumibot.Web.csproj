@@ -6,4 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\Events" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
+    </ItemGroup>
+
 </Project>
