@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\Events" />
+      <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kumibot.Database\Kumibot.Database.csproj" />
+      <PackageReference Include="Radzen.Blazor" Version="3.18.16" />
     </ItemGroup>
 
 </Project>
